@@ -1,0 +1,97 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.7.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:nebula-project-plugin:4.0.1'
+        classpath 'com.netflix.nebula:nebula-release-plugin:6.0.0'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
+        classpath 'com.palantir:jacoco-coverage:0.4.0'
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'nebula.release'
+apply plugin: 'nebula.facet'
+apply plugin: 'com.jfrog.artifactory'
+apply plugin: 'jacoco'
+apply plugin: 'com.palantir.jacoco-coverage'
+apply plugin: 'maven-publish'
+apply plugin: 'org.springframework.boot'
+
+description 'accp-initializer'
+group = 'accp'
+version = '1.0'
+sourceCompatibility = 1.8
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    publish {
+        repository {
+            repoKey = "${artifactory_projectRepoKey}"
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+        }
+
+        defaults {
+            publications('mavenJava')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'jcenter'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+        }
+    }
+}
+
+
+
+repositories {
+    jcenter()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR3"
+    }
+}
+
+dependencies {
+    compileOnly('org.projectlombok:lombok:1.16.18')
+    compile('org.springframework.boot:spring-boot-starter')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'com.google.guava', name: 'guava', version: '20.0'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.4.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker', version:springBootVersion
+    compile('com.samskivert:jmustache:1.14')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('io.springfox:springfox-swagger2:2.9.2')
+    compile('io.springfox:springfox-swagger-ui:2.9.2')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('com.jayway.jsonpath:json-path:2.4.0')
+    testCompile('com.jayway.jsonpath:json-path-assert:2.4.0')
+    testCompile('org.hamcrest:hamcrest-all:1.3')
+    testCompile('org.projectlombok:lombok:1.16.18')
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': project.description,
+                'Implementation-Version': project.version
+    }
+}
+
+jacoco {
+    toolVersion "0.8.1+"
+}

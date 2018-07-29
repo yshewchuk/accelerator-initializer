@@ -79,7 +79,7 @@ dependencies {
     compile "org.apache.commons:commons-lang3:$commonsLang3Version"
     compile "commons-io:commons-io:$commonsIOVersion"
     compile 'org.springframework.boot:spring-boot-starter-freemarker'
-    compile 'com.samskivert:jmustache'
+    compile 'org.springframework.boot:spring-boot-starter-mustache'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
     compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"

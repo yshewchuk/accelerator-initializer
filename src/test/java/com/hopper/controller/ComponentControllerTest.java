@@ -5,6 +5,7 @@
 package com.hopper.controller;
 
 import com.hopper.config.InitializerConfig;
+import com.hopper.config.ValidationConfig;
 import com.hopper.initializer.FileProcessor;
 import com.hopper.initializer.ProjectCreationService;
 import org.junit.Test;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = ComponentController.class, secure = false)
-@Import(InitializerConfig.class)
+@Import({InitializerConfig.class, ValidationConfig.class})
 public class ComponentControllerTest {
     @Autowired
     private MockMvc mvc;

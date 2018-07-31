@@ -1,5 +1,7 @@
 ## Introduction 
 
+[![Build Status](https://travis-ci.com/scotiabank/accelerator-initializer.svg)](https://travis-ci.com/scotiabank/accelerator-initializer)
+
 This Readme file provides instructions on how to run Accelerator, which enables enterprise-quality development practices for projects, big or small. Accelerator empowers developers to set up highly opinionated projects, designed to include all the modern conveniences of CI/CD without any of the legwork.
 
 Currently, developers call an API + daemon through Swagger, which generates the opinionated project. In the future, this will include additional CI/CD hooks with standard tools like Jenkins and Bitbucket.

@@ -59,10 +59,6 @@ repositories {
     jcenter()
 }
 
-ext['jmustache.version'] = '1.14'
-ext['json-path.version'] = '2.4.0'
-ext['lombok.version'] = '1.16.18'
-
 ext {
     springfoxSwaggerVersion = '2.9.2'
     guavaVersion = '20.0'

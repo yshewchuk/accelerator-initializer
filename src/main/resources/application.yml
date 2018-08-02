@@ -1,6 +1,8 @@
 spring:
   application:
     name: initializer
+  mustache:
+    suffix:
 endpoints:
     enabled: false
     health:
@@ -8,7 +10,3 @@ endpoints:
 
 server:
   port: 8086
-
-spring:
-  mustache:
-     suffix:

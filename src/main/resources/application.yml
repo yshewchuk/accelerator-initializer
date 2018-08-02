@@ -9,4 +9,6 @@ endpoints:
 server:
   port: 8086
 
-spring.mustache.suffix=
+spring:
+  mustache:
+     suffix:

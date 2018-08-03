@@ -10,6 +10,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,16 +57,16 @@ public class JavaPackageCreatorTest {
         this.creator.create(request);
         verify(this.fileProcessor, times(2)).createDirectories(fileCaptor.capture());
         
-        List<String> collectedPaths = fileCaptor.getAllValues()
+        List<Path> collectedPaths = fileCaptor.getAllValues()
                   .stream()
-                  .map(File::getPath)
+                  .map(File::toPath)
                   .collect(Collectors.toList());
-        assertEquals(paths(request.getProjectKey()), collectedPaths);
+        assertEquals(paths(), collectedPaths);
         
     }
     
-    private List<String> paths(String ciadKey) {
-        return Lists.newArrayList("./src/main/java/com/hopper",
-                "./src/test/java/com/hopper");
+    private List<Path> paths() {
+        return Lists.newArrayList(Paths.get("./src/main/java/com/hopper"),
+                Paths.get("./src/test/java/com/hopper"));
     }
 }

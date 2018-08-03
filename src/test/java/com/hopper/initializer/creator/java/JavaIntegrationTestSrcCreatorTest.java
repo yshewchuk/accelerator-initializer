@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import com.hopper.initializer.creator.FileCreationOrder;
 import com.hopper.initializer.model.ProjectCreation;
@@ -57,12 +58,12 @@ public class JavaIntegrationTestSrcCreatorTest {
         assertTrue(this.fileCaptor
             .getAllValues()
             .stream()
-            .map(File::getPath)
+            .map(File::toPath)
             .allMatch(this::srcIsCreatedUnderRootFolder));
     }
     
-    private boolean srcIsCreatedUnderRootFolder(String input) {
-        return input.equals(folder.getRoot().getPath()+"/src/acceptanceTest/java")
-               || input.equals(folder.getRoot().getPath()+"/src/acceptanceTest/resources");
+    private boolean srcIsCreatedUnderRootFolder(Path input) {
+        return input.equals(folder.getRoot().toPath().resolve("src/acceptanceTest/java"))
+               || input.equals(folder.getRoot().toPath().resolve("src/acceptanceTest/resources"));
     }
 }

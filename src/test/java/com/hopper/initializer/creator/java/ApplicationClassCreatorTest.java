@@ -11,6 +11,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import com.hopper.initializer.creator.FileCreationOrder;
@@ -59,7 +60,7 @@ public class ApplicationClassCreatorTest {
         this.creator.create(request);
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
         Path applicationPath = pathCaptor.getValue();
-        assertEquals("./src/test/java/com/hopper/ApplicationTest.java", applicationPath.toString());
+        assertEquals(Paths.get("./src/test/java/com/hopper/ApplicationTest.java"), applicationPath);
     }
     
     @Test

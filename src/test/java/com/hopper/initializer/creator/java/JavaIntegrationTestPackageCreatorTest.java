@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,6 +81,6 @@ public class JavaIntegrationTestPackageCreatorTest {
     }
     
     private List<String> paths(String ciadKey) {
-        return Lists.newArrayList("./src/acceptanceTest/java/com/hopper");
+        return Lists.newArrayList(Paths.get("./src/acceptanceTest/java/com/hopper").toString());
     }
 }

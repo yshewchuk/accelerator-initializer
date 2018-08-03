@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.hopper.initializer.creator.FileCreationOrder;
 import com.hopper.initializer.model.ProjectCreation;
@@ -58,8 +59,8 @@ public class ApplicationYamlCreatorTest {
                 .build();
         srcFileCreator.create(request);
         verify(fileProcessor, times(1)).touch(this.fileCaptor.capture());
-        String path = this.fileCaptor.getValue().toString();
-        assertEquals(folder.getRoot().getAbsolutePath()+ApplicationYamlCreator.APPLICATION_YML_PATH, path);
+        Path path = this.fileCaptor.getValue();
+        assertEquals(Paths.get(folder.getRoot().getAbsolutePath()+ApplicationYamlCreator.APPLICATION_YML_PATH), path);
     }
     
     

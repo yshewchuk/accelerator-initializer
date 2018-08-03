@@ -61,11 +61,11 @@ public class JavaPackageCreatorTest {
                   .stream()
                   .map(File::toPath)
                   .collect(Collectors.toList());
-        assertEquals(paths(request.getProjectKey()), collectedPaths);
+        assertEquals(paths(), collectedPaths);
         
     }
     
-    private List<Path> paths(String ciadKey) {
+    private List<Path> paths() {
         return Lists.newArrayList(Paths.get("./src/main/java/com/hopper"),
                 Paths.get("./src/test/java/com/hopper"));
     }

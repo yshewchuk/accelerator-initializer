@@ -8,10 +8,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.io.File;
-
 import com.hopper.initializer.creator.ProjectCreator;
-import com.hopper.controller.request.ComponentAddRequest;
 import com.hopper.initializer.model.ProjectCreation;
 import com.hopper.initializer.zip.ZipFile;
 import org.junit.Before;

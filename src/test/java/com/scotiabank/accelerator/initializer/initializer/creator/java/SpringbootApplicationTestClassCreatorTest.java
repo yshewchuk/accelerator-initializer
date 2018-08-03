@@ -5,13 +5,13 @@
 package com.scotiabank.accelerator.initializer.initializer.creator.java;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import com.scotiabank.accelerator.initializer.initializer.creator.FileCreationOrder;
@@ -58,7 +58,7 @@ public class SpringbootApplicationTestClassCreatorTest {
         this.creator.create(request);
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
         Path applicationPath = pathCaptor.getValue();
-        assertEquals("./src/main/java/com/hopper/Application.java", applicationPath.toString());
+        assertEquals(Paths.get("./src/main/java/com/hopper/Application.java"), applicationPath);
     }
     
     @Test

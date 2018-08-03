@@ -26,7 +26,7 @@ public class ZipFileImpl implements ZipFile {
         String zipPath = format(ZIP_FORMAT, projectPath);
         File fileToZip = new File(projectPath);
         try (FileOutputStream fos = new FileOutputStream(zipPath);
-             ZipOutputStream zipOut = new ZipOutputStream(fos);) {
+             ZipOutputStream zipOut = new ZipOutputStream(fos)) {
              zipFile(fileToZip, fileToZip.getName(), zipOut);
             return new File(zipPath);
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class ZipFileImpl implements ZipFile {
             }
             return;
         }
-        try (FileInputStream fis = new FileInputStream(fileToZip);) {
+        try (FileInputStream fis = new FileInputStream(fileToZip)) {
             ZipEntry zipEntry = new ZipEntry(fileName);
             zipOut.putNextEntry(zipEntry);
             byte[] bytes = new byte[1024];

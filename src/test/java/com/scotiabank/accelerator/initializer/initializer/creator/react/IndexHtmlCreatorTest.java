@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -48,7 +49,7 @@ public class IndexHtmlCreatorTest {
         this.creator.create(request);
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
         Path indexHtmlPath = pathCaptor.getValue();
-        assertEquals("./src/index.html", indexHtmlPath.toString());
+        assertEquals(Paths.get("./src/index.html"), indexHtmlPath);
     }
     
     @Test

@@ -9,5 +9,5 @@ public enum ApplicationType {
     JAVA_SPRING_BOOT_2,
     JAVA_LIBRARY,
     NODE,
-    REACT;
+    REACT
 }

@@ -30,7 +30,7 @@ public enum FileCreationOrder {
 
     private final int order;
     
-    private FileCreationOrder(int order) {
+    FileCreationOrder(int order) {
         this.order = order;
     }
     

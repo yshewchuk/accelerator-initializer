@@ -15,10 +15,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -50,7 +50,7 @@ public class PackageJsonCreatorTest {
         this.creator.create(request);
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
         Path packageJsonPath = pathCaptor.getValue();
-        assertEquals("./package.json", packageJsonPath.toString());
+        assertEquals(Paths.get("./package.json"), packageJsonPath);
     }
     
     @Test

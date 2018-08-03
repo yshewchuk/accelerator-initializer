@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import com.scotiabank.accelerator.initializer.initializer.FileProcessor;
 import com.scotiabank.accelerator.initializer.initializer.creator.FileCreationOrder;
@@ -55,13 +56,13 @@ public class JavaMainSrcCreatorTest {
         assertTrue(this.fileCaptor
             .getAllValues()
             .stream()
-            .map(File::getPath)
+            .map(File::toPath)
             .allMatch(this::srcIsCreatedUnderRootFolder));
     }
     
-    private boolean srcIsCreatedUnderRootFolder(String input) {
-        return input.equals(folder.getRoot().getPath()+"/src/main/java")
-               || input.equals(folder.getRoot().getPath()+"/src/main/resources");
+    private boolean srcIsCreatedUnderRootFolder(Path input) {
+        return input.equals(folder.getRoot().toPath().resolve("src/main/java"))
+               || input.equals(folder.getRoot().toPath().resolve("src/main/resources"));
     }
 
 }

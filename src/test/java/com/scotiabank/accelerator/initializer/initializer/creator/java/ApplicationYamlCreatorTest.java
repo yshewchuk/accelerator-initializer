@@ -5,13 +5,13 @@
 package com.scotiabank.accelerator.initializer.initializer.creator.java;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.scotiabank.accelerator.initializer.initializer.creator.FileCreationOrder;
 import com.scotiabank.accelerator.initializer.initializer.model.ProjectCreation;
@@ -58,8 +58,8 @@ public class ApplicationYamlCreatorTest {
                 .build();
         srcFileCreator.create(request);
         verify(fileProcessor, times(1)).touch(this.fileCaptor.capture());
-        String path = this.fileCaptor.getValue().toString();
-        assertEquals(folder.getRoot().getAbsolutePath()+ApplicationYamlCreator.APPLICATION_YML_PATH, path);
+        Path path = this.fileCaptor.getValue();
+        assertEquals(Paths.get(folder.getRoot().getAbsolutePath()+ApplicationYamlCreator.APPLICATION_YML_PATH), path);
     }
     
     

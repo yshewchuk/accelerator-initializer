@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -63,7 +64,7 @@ public class ConfJsCreatorTest {
         this.creator.create(request);
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
         Path confJsPath = pathCaptor.getValue();
-        assertEquals("./acceptanceTest/conf.js", confJsPath.toString());
+        assertEquals(Paths.get("./acceptanceTest/conf.js"), confJsPath);
     }
 
     @Test

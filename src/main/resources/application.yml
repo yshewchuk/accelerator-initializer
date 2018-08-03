@@ -1,4 +1,7 @@
 spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
   application:
     name: initializer
   mustache:
@@ -7,6 +10,7 @@ endpoints:
     enabled: false
     health:
       enabled: true
+
 
 server:
   port: 8086

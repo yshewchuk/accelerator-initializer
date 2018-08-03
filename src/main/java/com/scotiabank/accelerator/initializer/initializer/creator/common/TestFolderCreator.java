@@ -5,10 +5,8 @@
 package com.scotiabank.accelerator.initializer.initializer.creator.common;
 
 import com.scotiabank.accelerator.initializer.initializer.creator.FileCreator;
-import com.scotiabank.accelerator.initializer.initializer.creator.annotation.JavaLibrary;
 import com.scotiabank.accelerator.initializer.initializer.creator.annotation.Node;
 import com.scotiabank.accelerator.initializer.initializer.creator.annotation.React;
-import com.scotiabank.accelerator.initializer.initializer.creator.annotation.SpringBoot;
 import com.scotiabank.accelerator.initializer.initializer.model.ProjectCreation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

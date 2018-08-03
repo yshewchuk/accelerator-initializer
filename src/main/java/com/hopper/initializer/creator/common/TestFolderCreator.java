@@ -17,10 +17,8 @@ import java.nio.file.Paths;
 
 @Component
 @Slf4j
-@SpringBoot
 @React
 @Node
-@JavaLibrary
 public class TestFolderCreator implements FileCreator<ProjectCreation> {
 
     public static final String TEST_PATH = "test";

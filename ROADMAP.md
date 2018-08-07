@@ -30,7 +30,8 @@ The current implementation provides the maximum amount of flexibility when creat
 - Project templates are tightly coupled with code, meaning a change to a template often requires a rebuild
  
 The current flow for creating a new project is shown below:
-![current generation flow](https://raw.githubusercontent.com/yshewchuk/accelerator-initializer/update-roadmap/Stage1.png)
+
+![current generation flow](Stage1.png)
 
 ## Next State
 

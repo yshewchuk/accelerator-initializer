@@ -6,8 +6,8 @@ package com.scotiabank.accelerator.initializer.controller;
 
 import com.scotiabank.accelerator.initializer.config.InitializerConfig;
 import com.scotiabank.accelerator.initializer.config.ValidationConfig;
-import com.scotiabank.accelerator.initializer.initializer.FileProcessor;
-import com.scotiabank.accelerator.initializer.initializer.ProjectCreationService;
+import com.scotiabank.accelerator.initializer.core.FileProcessor;
+import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

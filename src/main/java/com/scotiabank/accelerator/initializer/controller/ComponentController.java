@@ -5,9 +5,9 @@
 package com.scotiabank.accelerator.initializer.controller;
 
 import com.scotiabank.accelerator.initializer.controller.request.ComponentAddRequest;
-import com.scotiabank.accelerator.initializer.initializer.FileProcessor;
-import com.scotiabank.accelerator.initializer.initializer.ProjectCreationService;
-import com.scotiabank.accelerator.initializer.initializer.model.ProjectCreation;
+import com.scotiabank.accelerator.initializer.core.FileProcessor;
+import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
+import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

@@ -28,6 +28,7 @@ Currently the application has the following characteristics:
 The current implementation provides the maximum amount of flexibility when creating projects, because any logic can be coded to describe exactly how to generate the project. However, this has the following shortcomings:
 - Adding or modifying project templates is difficult without thorough understanding of internals
 - Project templates are tightly coupled with code, meaning a change to a template often requires a rebuild
+- The client of this application must be made aware of what types of projects are valid external to the application (no discovery)
  
 The current flow for creating a new project is shown below:
 
@@ -35,4 +36,31 @@ The current flow for creating a new project is shown below:
 
 ## Next State
 
+To make this product simpler for others to customize and integrate into their environments, it would be beneficial for the templates to be generated based on external configuration. This would allow others to create and customize project templates without having to customize the application.
+
+This would have the following behaviour:
+- A project template is defined by a manifest file which describes all the files to be included (either implicitly or explicitly)
+  - Files are identified which must flow through the templating system
+- The project template defines a default template context (a set of variables and default values)
+  - Used to centralize control of variables which may be project-wide
+  - Could be used to easily update commonly changing values (ie: library versions) without updating templates
+
+Upon completion of this stage, the flow for creating a new project would look something like this:
+
+![next generation flow](Stage2.png)
+
+The workflow for the generation of projects based on the manifest file would likely be as shown below:
+
+![manifest flow](ManifestFlow.png)
+
 ## Possible Future State
+
+Eventually, once the manifest-based project generation has been implemented, projects can be migrated from the current code-based implementations to equivalent configuration-based implementations. Once that's been done we can retire those parts of the system, to simplify the flow greatly:
+
+![next generation flow](Stage3.png)
+
+## Big Picture
+
+The Accelerator Initializer contains other components that are not yet open-source. In the future the accelerator initializer will include components that will allow automatic provisioning of source control repositories, CI/CD infrastructure, and possibly even more. The following diagram shows how the Accelerator Initializer fits in with other systems, as well as which parts of the Accelerator Initializer are currently open source (shown in green).
+
+![big picture](BigPicture.png)

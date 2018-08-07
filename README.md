@@ -1,6 +1,6 @@
 # Accelerator Initializer
 
-[![Build Status](https://travis-ci.com/scotiabank/accelerator-initializer.svg)](https://travis-ci.com/scotiabank/accelerator-initializer)
+[![Build Status](https://travis-ci.com/scotiabank/accelerator-initializer.svg)](https://travis-ci.com/scotiabank/accelerator-initializer)[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8a749a1866624ac7ba2d24b0f7d8158d)](https://www.codacy.com/project/yshewchuk/accelerator-initializer/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=scotiabank/accelerator-initializer&amp;utm_campaign=Badge_Grade_Dashboard)
 
 Accelerator Initializer is a service that exposes a simple HTTP interface to initialize project file and directory structures for new projects based on standard templates.
 

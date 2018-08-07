@@ -45,7 +45,7 @@ public class ComponentControllerTest {
 
     @Test
     public void whenDownloadRequestBodyIsInvalidExpect400() throws Exception {
-        this.mvc.perform(post("/api/projects/{CIADID}/components/download", "HOPPER")
+        this.mvc.perform(post("/api/projects/components/download", "HOPPER")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content("{\"projectKey\" : \"\", \"type\" : \"JAVA_SPRING_BOOT\", \"name\": \"$INVALID_ONE\"}")
                 )
@@ -56,7 +56,7 @@ public class ComponentControllerTest {
 
     @Test
     public void whenDownloadBodyIsOkThenExpect201() throws Exception {
-        this.mvc.perform(post("/api/projects/{CIADID}/components/download", "HOPPER")
+        this.mvc.perform(post("/api/projects/components/download", "HOPPER")
 		                .contentType(MediaType.APPLICATION_JSON_UTF8)
 		                .content("{\"projectKey\" : \"HOPPER\", \"type\" : \"JAVA_SPRING_BOOT\", \"name\": \"hopper-intake\"}")
 		                )

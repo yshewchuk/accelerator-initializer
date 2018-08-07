@@ -36,7 +36,7 @@ public class ComponentController {
         this.rootDir = checkNotNull(rootDir);
     }
 
-    @PostMapping("/api/projects/{ciadKey}/components/download")
+    @PostMapping("/api/projects/components/download")
     public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ComponentAddRequest component) {
         byte[] content = projectCreationService.create(convertToProjectCreation(component));
 

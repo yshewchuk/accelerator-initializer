@@ -30,31 +30,6 @@ group = 'accp'
 version = '1.0'
 sourceCompatibility = 1.8
 
-artifactory {
-    contextUrl = "${artifactory_contextUrl}"
-    publish {
-        repository {
-            repoKey = "${artifactory_projectRepoKey}"
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-        }
-
-        defaults {
-            publications('mavenJava')
-        }
-    }
-    resolve {
-        repository {
-            repoKey = 'jcenter'
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-            maven = true
-        }
-    }
-}
-
-
-
 repositories {
     jcenter()
 }

@@ -34,6 +34,40 @@ The current flow for creating a new project is shown below:
 
 ![current generation flow](Stage1.png)
 
+And the API that enables this is:
+
+### /api/projects/components/download
+---
+##### ***POST***
+**Summary:** userDownload
+
+**Parameters**
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| component | body | component | Yes | [ComponentAddRequest](#componentaddrequest) |
+
+**Responses**
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | OK | byte |
+| 201 | Created |  |
+| 401 | Unauthorized |  |
+| 403 | Forbidden |  |
+| 404 | Not Found |  |
+
+### Models
+---
+
+### ComponentAddRequest  
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| name | string |  | No |
+| projectKey | string |  | No |
+| type | string |  | No |
+
 ## Next State
 
 To make this product simpler for others to customize and integrate into their environments, it would be beneficial for the templates to be generated based on external configuration. This would allow others to create and customize project templates without having to customize the application.
@@ -52,6 +86,59 @@ Upon completion of this stage, the flow for creating a new project would look so
 The workflow for the generation of projects based on the manifest file would likely be as shown below:
 
 ![manifest flow](ManifestFlow.png)
+
+Along with this, some API changes would be beneficial to clarify the usage, as well as to allow additional use cases:
+
+
+### /api/project/generate
+---
+##### ***POST***
+**Summary:** Allows generation of a new project
+
+**Parameters**
+
+| Name | Located in | Description | Required | Schema |
+| ---- | ---------- | ----------- | -------- | ---- |
+| projectProperties | body | Properties of the project to generate | Yes | [projectProperties](#projectproperties) |
+
+**Responses**
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | OK |
+
+### /api/project/generate/types
+---
+##### ***GET***
+**Summary:** Discover the types of projects that are available
+
+**Responses**
+
+| Code | Description | Schema |
+| ---- | ----------- | ------ |
+| 200 | OK | [ [projectType](#projecttype) ] |
+
+### Models
+---
+
+### projectType  
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| name | string |  | No |
+| title | string |  | No |
+| description | string |  | No |
+| tags | [ string ] |  | No |
+| icon | string |  | No |
+| components | [  ] |  | No |
+
+### projectProperties  
+
+| Name | Type | Description | Required |
+| ---- | ---- | ----------- | -------- |
+| name | string |  | No |
+| projectKey | string |  | No |
+| type | string |  | No |
 
 ## Possible Future State
 

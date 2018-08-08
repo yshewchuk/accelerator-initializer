@@ -1,0 +1,89 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '2.0'
+  title: Api Documentation
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'localhost:8086'
+basePath: /
+tags:
+  - name: Project Generation
+    description: Endpoints relating to generation of project code
+paths:
+  /api/project/generate:
+    post:
+      tags:
+        - Project Generation
+      summary: Allows generation of a new project
+      operationId: generateProject
+      consumes:
+        - application/json
+      produces:
+        - 'application/zip'
+      parameters:
+        - in: body
+          name: projectProperties
+          description: Properties of the project to generate
+          required: true
+          schema:
+            $ref: '#/definitions/projectProperties'
+      responses:
+        '200':
+          description: OK
+      deprecated: false
+  /api/project/generate/types:
+    get:
+      tags:
+        - Project Generation
+      summary: Discover the types of projects that are available
+      operationId: getMetadata
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/projectType'
+definitions:
+  projectType:
+    type: object
+    properties:
+      name:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      tags:
+        type: array
+        items:
+          type: string
+      icon:
+        type: string
+      components:
+        type: array
+        items:
+          properties:
+            title:
+              type: string
+            icon:
+              type: string
+    title: Project Type
+  projectProperties:
+    type: object
+    properties:
+      name:
+        type: string
+      projectKey:
+        type: string
+      type:
+        type: string
+    title: Project Properties

@@ -8,22 +8,31 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class BuildGradleTemplateParser {
+
+    @VisibleForTesting
     static final String INTEGRATION_TEST_PATH = "projectCreation/buildgradle/integrationTest.tpl";
+    @VisibleForTesting
     static final String JAR_PATH = "projectCreation/buildgradle/jar.tpl";
+    @VisibleForTesting
     static final String DEPENDENCIES_PATH = "projectCreation/buildgradle/dependencies.tpl";
+    @VisibleForTesting
     static final String REPOSITORIES_PATH = "projectCreation/buildgradle/repositories.tpl";
+    @VisibleForTesting
     static final String PROJECT_METADATA_PATH = "projectCreation/buildgradle/projectMetadata.tpl";
+    @VisibleForTesting
     static final String BUILDSCRIPT_PATH = "projectCreation/buildgradle/buildscript.tpl";
+    @VisibleForTesting
     static final String APPLY_PLUGINS_PATH = "projectCreation/buildgradle/ApplyPlugin.tpl";
     
     private final FileProcessor fileProcessor;
-    private Map<String, Object> args;
-    private File buildDotGradle;
+    private final Map<String, Object> args;
+    private final File buildDotGradle;
 
     public BuildGradleTemplateParser(FileProcessor fileProcessor, Map<String, Object> args, File buildDotGradle) {
         this.fileProcessor = checkNotNull(fileProcessor);

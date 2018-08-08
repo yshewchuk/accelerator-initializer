@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.JavaLibrary;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.SpringBoot;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
@@ -25,10 +26,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @JavaLibrary
 class GradleBinaryCreator implements FileCreator<ProjectCreation> {
 
+    @VisibleForTesting
     static final String GRADLE_WRAPPER_PROPERTIES_TEMPLATE_PATH = "projectCreation/gradle/gradle-wrapper.properties.tpl";
+    @VisibleForTesting
     static final String GRADLEW_PATH = "templates/projectCreation/gradle/gradlew";
+    @VisibleForTesting
     static final String GRADLEW_BAT_PATH = "templates/projectCreation/gradle/gradlew.bat";
+    @VisibleForTesting
     static final String GRADLE_WRAPPER_JAR_PATH = "templates/projectCreation/gradle/gradle-wrapper.jar";
+
     private final FileProcessor fileProcessor;
 
     public GradleBinaryCreator(FileProcessor fileProcessor) {

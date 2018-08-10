@@ -8,6 +8,7 @@ import java.io.File;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.JavaLibrary;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.SpringBoot;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
@@ -28,7 +29,9 @@ import lombok.extern.slf4j.Slf4j;
 @JavaLibrary
 class BuildDotGradleCreator implements FileCreator<ProjectCreation> {
 
+    @VisibleForTesting
     static final String BUILD_DOT_GRADLE_FILE_NAME = "build.gradle";
+
     private final FileProcessor fileProcessor;
 
     public BuildDotGradleCreator(FileProcessor fileProcessor) {

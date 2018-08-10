@@ -25,6 +25,7 @@ repositories {
 }
 
 ext {
+    lombokVersion = '1.18.2'
     springfoxSwaggerVersion = '2.9.2'
     guavaVersion = '20.0'
     commonsLang3Version = '3.7'
@@ -45,7 +46,7 @@ sourceSets {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok'
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-web'
     compile "com.google.guava:guava:$guavaVersion"
@@ -104,7 +105,7 @@ task integrationTest (type: Test) {
     description 'Runs the integration tests'
 
     classpath = sourceSets.integrationTest.runtimeClasspath
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
 }
 integrationTest.dependsOn compileIntegrationTestJava
 
@@ -114,7 +115,7 @@ task jacocoIntegrationTestReport (type: JacocoReport, dependsOn: integrationTest
 
     executionData integrationTest
     sourceDirectories = files(sourceSets.main.java.srcDirs)
-    classDirectories = files(sourceSets.main.output.classesDir)
+    classDirectories = files(sourceSets.main.output.classesDirs)
 
     reports {
         xml.enabled = false

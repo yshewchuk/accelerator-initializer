@@ -6,23 +6,13 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.netflix.nebula:nebula-project-plugin:4.0.1'
-        classpath 'com.netflix.nebula:nebula-release-plugin:6.0.0'
-        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:latest.release'
-        classpath 'com.palantir:jacoco-coverage:0.4.0'
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'nebula.release'
-apply plugin: 'nebula.facet'
-apply plugin: 'com.jfrog.artifactory'
 apply plugin: 'jacoco'
-apply plugin: 'com.palantir.jacoco-coverage'
-apply plugin: 'maven-publish'
 apply plugin: 'org.springframework.boot'
 
 description 'accp-initializer'
@@ -41,6 +31,19 @@ ext {
     commonsIOVersion = '2.6'
 }
 
+sourceSets {
+    integrationTest {
+        resources {
+            srcDirs 'src/integrationTest/resources'
+        }
+        java {
+            compileClasspath += main.compileClasspath + main.output
+            runtimeClasspath += main.runtimeClasspath
+            srcDirs 'src/integrationTest/java'
+        }
+    }
+}
+
 dependencies {
     compileOnly 'org.projectlombok:lombok'
     compile 'org.springframework.boot:spring-boot-starter'
@@ -49,7 +52,6 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile "org.apache.commons:commons-lang3:$commonsLang3Version"
     compile "commons-io:commons-io:$commonsIOVersion"
-    compile 'org.springframework.boot:spring-boot-starter-freemarker'
     compile 'org.springframework.boot:spring-boot-starter-mustache'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
@@ -57,7 +59,7 @@ dependencies {
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'com.jayway.jsonpath:json-path'
     testCompile 'com.jayway.jsonpath:json-path-assert'
-    testCompile 'org.projectlombok:lombok'
+    integrationTestCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 
 jar {
@@ -68,5 +70,81 @@ jar {
 }
 
 jacoco {
-    toolVersion "0.8.1+"
+    toolVersion "0.8.1"
 }
+
+jacocoTestReport {
+    reports {
+        csv.enabled = false
+        xml.enabled = false
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = "BUNDLE"
+
+            limit {
+                counter = "INSTRUCTION"
+                minimum = 0.35
+            }
+
+            limit {
+                counter = "BRANCH"
+                minimum = 0.03
+            }
+        }
+    }
+}
+check.dependsOn jacocoTestCoverageVerification
+
+task integrationTest (type: Test) {
+    group 'verification'
+    description 'Runs the integration tests'
+
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+}
+integrationTest.dependsOn compileIntegrationTestJava
+
+task jacocoIntegrationTestReport (type: JacocoReport, dependsOn: integrationTest) {
+    group = "verification"
+    description = "Generate Jacoco coverage reports after running integration tests."
+
+    executionData integrationTest
+    sourceDirectories = files(sourceSets.main.java.srcDirs)
+    classDirectories = files(sourceSets.main.output.classesDir)
+
+    reports {
+        xml.enabled = false
+        csv.enabled = false
+        html.destination file("${buildDir}/reports/jacoco/integrationTest/html")
+    }
+}
+
+task jacocoIntegrationTestCoverageVerification (type: JacocoCoverageVerification, dependsOn: integrationTest) {
+    group = "verification"
+    description = "Verifies code coverage on the integration tests."
+
+    executionData integrationTest
+    sourceDirectories = files(sourceSets.main.java.srcDirs)
+    classDirectories = files(sourceSets.main.output.classesDir)
+
+    violationRules {
+        rule {
+            element = "BUNDLE"
+
+            limit {
+                counter = "INSTRUCTION"
+                minimum = 0.07
+            }
+
+            limit {
+                counter = "BRANCH"
+                minimum = 0.07
+            }
+        }
+    }
+}
+check.dependsOn jacocoIntegrationTestCoverageVerification

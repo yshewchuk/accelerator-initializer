@@ -16,9 +16,16 @@ When submitting code:
 
 2. Write tests:
    * Ensure your code is covered by unit tests
+      * Unit tests will test individual classes and methods
       * Unit test coverage required: 80%
       * Unit test coverage target: 95%
-   * Acceptance test strategy TBD
+   * Ensure that integration tests are written
+      * Integration tests will test at the API level
+         * Will test the components together
+         * Verify the dependency injection is injecting the correct components
+         * Should verify multiple configurations (for example, if multiple output formats are allowed, should test both)
+      * Integration test coverage will be measured separately
+      * Integration test coverage target: 90% (currently much lower, but enforcement will slowly increase)
 
 3. Ensure you can build
    ```

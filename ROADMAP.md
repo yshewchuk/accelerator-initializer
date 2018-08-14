@@ -32,7 +32,7 @@ The current implementation provides the maximum amount of flexibility when creat
  
 The current flow for creating a new project is shown below:
 
-![current generation flow](Stage1.png)
+![current generation flow](docs/Stage1.png)
 
 And the API that enables this is:
 
@@ -81,7 +81,7 @@ This would have the following behaviour:
 
 Upon completion of this stage, the flow for creating a new project would look something like this:
 
-![next generation flow](Stage2.png)
+![next generation flow](docs/Stage2.png)
 
 The workflow for the generation of projects based on the manifest file would likely be as shown below:
 
@@ -144,10 +144,10 @@ Along with this, some API changes would be beneficial to clarify the usage, as w
 
 Eventually, once the manifest-based project generation has been implemented, projects can be migrated from the current code-based implementations to equivalent configuration-based implementations. Once that's been done we can retire those parts of the system, to simplify the flow greatly:
 
-![next generation flow](Stage3.png)
+![next generation flow](docs/Stage3.png)
 
 ## Big Picture
 
 The Accelerator Initializer contains other components that are not yet open-source. In the future the accelerator initializer will include components that will allow automatic provisioning of source control repositories, CI/CD infrastructure, and possibly even more. The following diagram shows how the Accelerator Initializer fits in with other systems, as well as which parts of the Accelerator Initializer are currently open source (shown in green).
 
-![big picture](BigPicture.png)
+![big picture](docs/BigPicture.png)

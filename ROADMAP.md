@@ -85,7 +85,7 @@ Upon completion of this stage, the flow for creating a new project would look so
 
 The workflow for the generation of projects based on the manifest file would likely be as shown below:
 
-![manifest flow](ManifestFlow.png)
+![manifest flow](docs/ManifestFlow.png)
 
 Along with this, some API changes would be beneficial to clarify the usage, as well as to allow additional use cases:
 

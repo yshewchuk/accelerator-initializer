@@ -9,13 +9,15 @@ import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
+import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -29,16 +31,33 @@ public class ComponentController {
     private final ProjectCreationService projectCreationService;
     private final FileProcessor fileProcessor;
     private final String rootDir;
+    private final TemplateProcessor templateProcessor;
+    private final ZipFile zipFile;
 
-    public ComponentController(ProjectCreationService projectCreationService, FileProcessor fileProcessor, String rootDir) {
+    public ComponentController(ProjectCreationService projectCreationService,
+                               FileProcessor fileProcessor,
+                               String rootDir,
+                               TemplateProcessor templateProcessor,
+                               ZipFile zipFile) {
         this.projectCreationService = checkNotNull(projectCreationService);
         this.fileProcessor = checkNotNull(fileProcessor);
         this.rootDir = checkNotNull(rootDir);
+        this.templateProcessor = templateProcessor;
+        this.zipFile = zipFile;
     }
 
     @PostMapping("/api/projects/components/download")
-    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ComponentAddRequest component) {
-        byte[] content = projectCreationService.create(convertToProjectCreation(component));
+    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ComponentAddRequest component) throws InvalidTemplateException, URISyntaxException {
+
+        File clonedDirectory = templateProcessor.createApplication(component);
+        byte[] content = null;
+        try {
+            content = IOUtils.toByteArray(zipFile.zip(clonedDirectory.getAbsolutePath()).toURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        byte[] content = projectCreationService.create(convertToProjectCreation(component));
 
         String contentDispositionValue = "attachment; filename=\"" + component.getName() + ".zip\"";
         return ResponseEntity.ok()
@@ -48,7 +67,7 @@ public class ComponentController {
     }
 
     private ProjectCreation convertToProjectCreation(ComponentAddRequest request) {
-        return  ProjectCreation.builder()
+        return ProjectCreation.builder()
                 .projectKey(request.getProjectKey())
                 .repositoryName(request.getName())
                 .type(request.getType())

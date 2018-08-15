@@ -7,10 +7,13 @@ spring:
   mustache:
     suffix:
 endpoints:
-    enabled: false
-    health:
-      enabled: true
+  enabled: false
+  health:
+    enabled: true
 
 
 server:
   port: 8086
+
+initializer:
+  template-path: templates/projectCreation/

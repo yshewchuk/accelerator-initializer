@@ -22,14 +22,13 @@ public class ComponentAddRequest {
     @Length(max = 128)
     @Pattern(regexp = "^([a-z0-9]|[a-z0-9][a-z0-9\\-_.]+)$", message = "{accp.initializer.component.invalid.name}")
     private String name;
-    
+
+    @NotEmpty
+    private String groupId; // Java groupId
+
     @NotEmpty
     private String projectKey;
     
     @NotNull
     private ApplicationType type;
-
-    @JsonIgnore
-    private String dummy;
-
 }

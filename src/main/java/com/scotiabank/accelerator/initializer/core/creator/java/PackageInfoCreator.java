@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @JavaLibrary
 class PackageInfoCreator implements FileCreator<ProjectCreation> {
 
-    static final String PACKAGE_INFO_TPL_PATH = "projectCreation/package-info.tpl";
+    private static final String PACKAGE_INFO_TPL_PATH = "projectCreation/package-info.tpl";
     private final FileProcessor fileProcessor;
 
     public PackageInfoCreator(FileProcessor fileProcessor) {

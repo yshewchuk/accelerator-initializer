@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.react;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.React;
@@ -23,10 +24,15 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @React
 public class StaticAssetsCreator implements FileCreator<ProjectCreation> {
 
+    @VisibleForTesting
     static final String INDEX_CSS_TPL_PATH = "templates/projectCreation/react/index.css.tpl";
+    @VisibleForTesting
     static final String APP_CSS_TPL_PATH = "templates/projectCreation/react/App.css.tpl";
+    @VisibleForTesting
     static final String LOGO_SVG_PATH = "templates/projectCreation/react/logo.svg";
+    @VisibleForTesting
     static final String FAVICON_ICO_PATH = "templates/projectCreation/react/favicon.ico";
+
     private final FileProcessor fileProcessor;
 
     public StaticAssetsCreator(FileProcessor fileProcessor) {

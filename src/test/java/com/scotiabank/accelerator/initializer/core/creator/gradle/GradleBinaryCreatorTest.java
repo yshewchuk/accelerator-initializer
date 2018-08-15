@@ -26,10 +26,7 @@ import static org.mockito.Mockito.when;
 public class GradleBinaryCreatorTest {
     @Mock
     private FileProcessor fileProcessor;
-    
-    @Mock
-    private File file;
-    
+
     @Mock
     private InputStream inputStream;
     

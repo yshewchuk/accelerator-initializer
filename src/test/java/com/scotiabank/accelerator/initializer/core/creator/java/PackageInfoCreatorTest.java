@@ -31,8 +31,6 @@ public class PackageInfoCreatorTest {
     private FileProcessor fileProcessor;
     @Captor
     private ArgumentCaptor<Path> pathCaptor;
-    @Captor
-    private ArgumentCaptor<Map<String,Object>> mapCaptor;
     
     private FileCreator<ProjectCreation> creator;
     

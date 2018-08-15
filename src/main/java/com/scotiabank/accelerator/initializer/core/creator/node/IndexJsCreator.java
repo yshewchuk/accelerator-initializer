@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 class IndexJsCreator implements FileCreator<ProjectCreation> {
 
-    static final String INDEX_JS_TPL_PATH = "templates/projectCreation/node/index.js.tpl";
+    private static final String INDEX_JS_TPL_PATH = "templates/projectCreation/node/index.js.tpl";
     private final FileProcessor fileProcessor;
 
     public IndexJsCreator(FileProcessor fileProcessor) {

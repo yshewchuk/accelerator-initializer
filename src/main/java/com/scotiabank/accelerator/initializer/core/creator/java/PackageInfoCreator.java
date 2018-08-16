@@ -35,7 +35,7 @@ class PackageInfoCreator implements FileCreator<ProjectCreation> {
     public void create(ProjectCreation request) {
         log.info("Creating package-info.java file");
         Path srcPath = Paths.get(request.getRootDir(), CreatorConstants.SRC_TEST_JAVA_PATH);
-        Path packagePath = Paths.get("com", request.getProjectKey().toLowerCase(), "package-info.java");
+        Path packagePath = Paths.get("com", request.getGroup().toLowerCase(), "package-info.java");
         new PackageInfo(fileProcessor)
             .create(srcPath.resolve(packagePath), request.resolvePackageName());
     }

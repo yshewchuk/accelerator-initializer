@@ -43,8 +43,8 @@ public class PackageJsonCreatorTest {
     @Test
     public void assertPackageJsonIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
-                        .repositoryName("test-app")
+                        .group("hopper")
+                        .name("test-app")
                         .rootDir(".")
                         .build();
         this.creator.create(request);
@@ -56,8 +56,8 @@ public class PackageJsonCreatorTest {
     @Test
     public void assertTemplateIsParsed() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
-                        .repositoryName("test-app")
+                        .group("hopper")
+                        .name("test-app")
                         .rootDir(".")
                         .build();
         this.creator.create(request);

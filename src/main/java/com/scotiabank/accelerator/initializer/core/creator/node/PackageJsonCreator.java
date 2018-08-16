@@ -42,8 +42,8 @@ class PackageJsonCreator implements FileCreator<ProjectCreation> {
     }
     
     private void writeContentTo(File packageJson, ProjectCreation request) {
-        String projectNameValue = request.getProjectKey().toLowerCase();
-        String repoNameValue = request.getRepositoryName().toLowerCase();
+        String projectNameValue = request.getGroup().toLowerCase();
+        String repoNameValue = request.getName().toLowerCase();
         String appNameValue = projectNameValue + "-" + repoNameValue;
         String content = fileProcessor.processTemplate(PACKAGE_JSON_TPL_PATH, ImmutableMap.of("APP_NAME", appNameValue, "REPO_NAME", repoNameValue, "PROJECT_NAME", projectNameValue));
         fileProcessor.writeContentTo(packageJson, content);

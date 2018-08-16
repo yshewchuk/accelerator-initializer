@@ -35,7 +35,7 @@ Including one of the following in the request body:
 ```
 {
   "name": "node-app",
-  "projectKey": "hopper",
+  "group": "scotiabank",
   "type": "NODE"
 }
 ```
@@ -44,7 +44,7 @@ Including one of the following in the request body:
 ```
 {
   "name": "react-app",
-  "projectKey": "hopper",
+  "group": "scotiabank",
   "type": "REACT"
 }
 ```
@@ -53,7 +53,7 @@ Including one of the following in the request body:
 ```
 {
   "name": "boot-app",
-  "projectKey": "hopper",
+  "group": "scotiabank",
   "type": "JAVA_SPRING_BOOT"
 }
 ```
@@ -62,7 +62,7 @@ Including one of the following in the request body:
 ```
 {
   "name": "boot-app-2",
-  "projectKey": "hopper",
+  "group": "scotiabank",
   "type": "JAVA_SPRING_BOOT_2"
 }
 ```
@@ -70,8 +70,8 @@ Including one of the following in the request body:
 #### Java Library
 ```
 {
-  "name": "java-app",
-  "projectKey": "hopper",
+  "name": "java-lib",
+  "group": "scotiabank",
   "type": "JAVA_LIBRARY"
 }
 ```

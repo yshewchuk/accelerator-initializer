@@ -4,7 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.controller;
 
-import com.scotiabank.accelerator.initializer.controller.request.ComponentAddRequest;
+import com.scotiabank.accelerator.initializer.controller.request.ProjectProperties;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
@@ -36,8 +36,8 @@ public class ComponentController {
         this.rootDir = checkNotNull(rootDir);
     }
 
-    @PostMapping("/api/projects/components/download")
-    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ComponentAddRequest component) {
+    @PostMapping("/api/project/generate")
+    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ProjectProperties component) {
         byte[] content = projectCreationService.create(convertToProjectCreation(component));
 
         String contentDispositionValue = "attachment; filename=\"" + component.getName() + ".zip\"";
@@ -47,17 +47,17 @@ public class ComponentController {
                 .body(content);
     }
 
-    private ProjectCreation convertToProjectCreation(ComponentAddRequest request) {
+    private ProjectCreation convertToProjectCreation(ProjectProperties request) {
         return  ProjectCreation.builder()
-                .projectKey(request.getProjectKey())
-                .repositoryName(request.getName())
+                .group(request.getGroup())
+                .name(request.getName())
                 .type(request.getType())
                 .rootDir(initProjectDir(request))
                 .build();
     }
 
-    private String initProjectDir(ComponentAddRequest request) {
-        String projectName = String.format(TEMP_PATH, request.getProjectKey().toLowerCase(), request.getName().toLowerCase());
+    private String initProjectDir(ProjectProperties request) {
+        String projectName = String.format(TEMP_PATH, request.getGroup().toLowerCase(), request.getName().toLowerCase());
         File path = Paths.get(rootDir, projectName).toFile();
         fileProcessor.createDirectories(path);
         log.info("Creating path {} ", path);

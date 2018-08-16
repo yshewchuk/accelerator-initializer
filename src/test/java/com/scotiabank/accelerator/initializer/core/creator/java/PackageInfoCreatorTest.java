@@ -48,7 +48,7 @@ public class PackageInfoCreatorTest {
     @Test
     public void assertPackageInfoIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
                         .build();
         this.creator.create(request);

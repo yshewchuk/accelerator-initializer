@@ -34,7 +34,7 @@ class SettingsDotGradleCreator implements FileCreator<ProjectCreation> {
     public void create(ProjectCreation request) {
         Path settingGradlePath = Paths.get(request.getRootDir(),"settings.gradle");
         File settingsDotGralde = this.fileProcessor.touch(settingGradlePath);
-        String projectNameProperty = String.format(PROJECT_NAME, request.getRepositoryName());
+        String projectNameProperty = String.format(PROJECT_NAME, request.getName());
         this.fileProcessor.writeContentTo(settingsDotGralde, projectNameProperty);
     }
     

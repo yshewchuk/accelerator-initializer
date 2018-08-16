@@ -41,7 +41,7 @@ class ApplicationClassCreator implements FileCreator<ProjectCreation> {
     public void create(ProjectCreation request) {
         log.info("Creating Application.java file");
         Path srcPath = Paths.get(request.getRootDir(), SRC_MAIN_JAVA_PATH);
-        Path packagePath = Paths.get("com", request.getProjectKey().toLowerCase(), "Application.java");
+        Path packagePath = Paths.get("com", request.getGroup().toLowerCase(), "Application.java");
         File applicationJavaClass = fileProcessor.touch(srcPath.resolve(packagePath));
         writeContentTo(applicationJavaClass, request);
     }

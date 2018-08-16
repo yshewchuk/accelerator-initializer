@@ -43,7 +43,7 @@ public class IndexHtmlCreatorTest {
     @Test
     public void assertIndexHtmlIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .repositoryName("test-app")
+                        .name("test-app")
                         .rootDir(".")
                         .build();
         this.creator.create(request);
@@ -55,7 +55,7 @@ public class IndexHtmlCreatorTest {
     @Test
     public void assertTemplateIsParsed() {
         ProjectCreation request = ProjectCreation.builder()
-                        .repositoryName("test-app")
+                        .name("test-app")
                         .rootDir(".")
                         .build();
         this.creator.create(request);

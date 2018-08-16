@@ -35,7 +35,7 @@ class JavaPackageCreator implements FileCreator<ProjectCreation> {
     @Override
     public void create(ProjectCreation request) {
         log.info("Creating main, test srcs and packages");
-        String packagePath = String.format(CreatorConstants.PACKAGE_PATH, request.getProjectKey().toLowerCase());
+        String packagePath = String.format(CreatorConstants.PACKAGE_PATH, request.getGroup().toLowerCase());
         Path packages = Paths.get(request.getRootDir(), CreatorConstants.SRC_MAIN_JAVA_PATH, packagePath);
         Path testSrc = Paths.get(request.getRootDir(),  CreatorConstants.SRC_TEST_JAVA_PATH, packagePath);
         fileProcessor.createDirectories(packages.toFile());

@@ -41,7 +41,7 @@ class IndexHtmlCreator implements FileCreator<ProjectCreation> {
     }
     
     private void writeContentTo(File packageJson, ProjectCreation request) {
-        String repoNameValue = request.getRepositoryName().toLowerCase();
+        String repoNameValue = request.getName().toLowerCase();
         String content = fileProcessor.processTemplate(INDEX_HTML_TPL_PATH, ImmutableMap.of("REPO_NAME", repoNameValue));
         fileProcessor.writeContentTo(packageJson, content);
     }

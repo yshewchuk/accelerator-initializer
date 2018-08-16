@@ -33,7 +33,7 @@ class ApplicationYamlCreator implements FileCreator<ProjectCreation> {
     
     @Override
     public void create(ProjectCreation request) {
-        log.info("Creating application.yml file for {}-{} ", request.getProjectKey(), request.getRepositoryName());
+        log.info("Creating application.yml file for {}-{} ", request.getGroup(), request.getName());
         fileProcessor.touch(Paths.get(request.getRootDir(), APPLICATION_YML_PATH));
     }
     

@@ -54,7 +54,7 @@ public class JavaIntegrationTestPackageCreatorTest {
     @Test
     public void assertPackagePathIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
                         .build();
         this.creator.create(request);
@@ -70,10 +70,9 @@ public class JavaIntegrationTestPackageCreatorTest {
     @Test
     public void assertPackageInfoIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
-                        .build();
-        this.creator.create(request);
+                        .build();        this.creator.create(request);
         verify(this.fileProcessor, times(1)).createDirectories(any());
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
                 

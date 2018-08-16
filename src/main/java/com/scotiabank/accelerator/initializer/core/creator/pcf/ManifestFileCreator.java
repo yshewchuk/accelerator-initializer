@@ -40,7 +40,7 @@ class ManifestFileCreator implements FileCreator<ProjectCreation> {
 
     @Override
     public void create(ProjectCreation request) {
-        log.info("Creating manifest files for project {}", request.getRepositoryName());
+        log.info("Creating manifest files for project {}", request.getName());
             String templateContent = processTemplate(request);
             String fileName = String.format(FILE_NAME);
             File manifestFile = createFile(fileName, request.getRootDir());
@@ -48,7 +48,7 @@ class ManifestFileCreator implements FileCreator<ProjectCreation> {
     }
 
     private String processTemplate(ProjectCreation request) {
-        String applicationName = String.format(APPLICATION_NAME, request.getRepositoryName());
+        String applicationName = String.format(APPLICATION_NAME, request.getName());
         return fileProcessor.processTemplate(MANIFEST_FILE_TEMPLATE,
                 ImmutableMap.of("APPLICATION_NAME", applicationName, "IS_NODE_APP", request.isNodeApp(), "IS_REACT", request.getType() == ApplicationType.REACT));
     }

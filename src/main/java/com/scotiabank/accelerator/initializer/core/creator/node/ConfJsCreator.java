@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 class ConfJsCreator implements FileCreator<ProjectCreation> {
 
-    static final String CONF_JS_TPL_PATH = "templates/projectCreation/node/conf.js.tpl";
+    private static final String CONF_JS_TPL_PATH = "templates/projectCreation/node/conf.js.tpl";
     private final FileProcessor fileProcessor;
 
     public ConfJsCreator(FileProcessor fileProcessor) {

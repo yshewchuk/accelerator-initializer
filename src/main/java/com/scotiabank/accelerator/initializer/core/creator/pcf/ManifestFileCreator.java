@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.pcf;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreationOrder;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
@@ -27,6 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 @React
 class ManifestFileCreator implements FileCreator<ProjectCreation> {
+    @VisibleForTesting
     static final String MANIFEST_FILE_TEMPLATE = "projectCreation/manifest.tpl";
     private static final String APPLICATION_NAME = "%s";
     private static final String FILE_NAME = "manifest.yml";

@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
 
 import com.scotiabank.accelerator.initializer.core.creator.FileCreationOrder;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
@@ -31,8 +30,6 @@ public class PackageInfoCreatorTest {
     private FileProcessor fileProcessor;
     @Captor
     private ArgumentCaptor<Path> pathCaptor;
-    @Captor
-    private ArgumentCaptor<Map<String,Object>> mapCaptor;
     
     private FileCreator<ProjectCreation> creator;
     

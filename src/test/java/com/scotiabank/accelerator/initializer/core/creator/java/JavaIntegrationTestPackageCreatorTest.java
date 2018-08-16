@@ -64,7 +64,7 @@ public class JavaIntegrationTestPackageCreatorTest {
                   .stream()
                   .map(File::getPath)
                   .collect(Collectors.toList());
-        assertEquals(paths(request.getProjectKey()), collectedPaths);
+        assertEquals(paths(), collectedPaths);
     }
     
     @Test
@@ -80,7 +80,7 @@ public class JavaIntegrationTestPackageCreatorTest {
         assertEquals("package-info.java", pathCaptor.getValue().toFile().getName());
     }
     
-    private List<String> paths(String ciadKey) {
+    private List<String> paths() {
         return Lists.newArrayList(Paths.get("./src/acceptanceTest/java/com/hopper").toString());
     }
 }

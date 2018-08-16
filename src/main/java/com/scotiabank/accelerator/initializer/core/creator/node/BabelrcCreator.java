@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.node;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.Node;
@@ -21,6 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Slf4j
 @Node
 class BabelrcCreator implements FileCreator<ProjectCreation> {
+    @VisibleForTesting
     static final String BABEL_RC_TEMPLATE_PATH = "templates/projectCreation/node/babelrc.tpl";
     private final FileProcessor fileProcessor;
 

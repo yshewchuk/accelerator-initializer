@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.react;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.React;
@@ -21,6 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Slf4j
 @React
 class EslintrcCreator implements FileCreator<ProjectCreation> {
+    @VisibleForTesting
     static final String ESLINTRC_TEMPLATE_PATH = "templates/projectCreation/react/eslintrc.tpl";
     private final FileProcessor fileProcessor;
 

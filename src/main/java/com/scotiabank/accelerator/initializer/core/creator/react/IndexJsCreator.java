@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @React
 class IndexJsCreator implements FileCreator<ProjectCreation> {
 
-    static final String INDEX_JS_TPL_PATH = "templates/projectCreation/react/index.js.tpl";
+    private static final String INDEX_JS_TPL_PATH = "templates/projectCreation/react/index.js.tpl";
     private final FileProcessor fileProcessor;
 
     public IndexJsCreator(FileProcessor fileProcessor) {

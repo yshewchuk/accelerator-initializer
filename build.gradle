@@ -53,11 +53,11 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
     compile "org.apache.commons:commons-lang3:$commonsLang3Version"
     compile "commons-io:commons-io:$commonsIOVersion"
+    compile group: 'org.apache.commons', name: 'commons-text', version: '1.4'
     compile 'org.springframework.boot:spring-boot-starter-mustache'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
     compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
     compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
-    compile 'com.google.jimfs:jimfs:1.1'
     testCompile 'org.springframework.boot:springboot-starter-test'
     testCompile 'com.jayway.jsonpath:json-path'
     testCompile 'com.jayway.jsonpath:json-path-assert'

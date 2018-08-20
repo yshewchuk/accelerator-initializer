@@ -6,6 +6,7 @@ import com.scotiabank.accelerator.initializer.controller.request.ComponentAddReq
 import com.scotiabank.accelerator.initializer.core.zip.ZipFile;
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,6 +41,13 @@ public class TemplateProcessor {
         this.zipFile = zipFile;
     }
 
+    /**
+     * Create a new project based on an existing template, customize the values with Mustache template engine and provide in the component input param
+     *
+     * @param component {@link ComponentAddRequest} attributes to create a new project
+     * @return A byte[] containing the new project zipped.
+     * @throws IOException if the path could not be deleted.
+     */
     public byte[] createApplication(ComponentAddRequest component) throws InvalidTemplateException, URISyntaxException, IOException {
         log.debug("Start the creation of application '{}' with template '{}'", component.getName(), component.getType());
 
@@ -78,6 +86,12 @@ public class TemplateProcessor {
         return content;
     }
 
+    /**
+     * Delete a directory and all its content recursively.
+     *
+     * @param path The path of the directory to delete
+     * @throws IOException if the path could not be deleted.
+     */
     private void deleteDirectoryAndContent(String path) throws IOException {
         try (Stream<Path> paths = walk(Paths.get(path))) {
             paths
@@ -87,6 +101,14 @@ public class TemplateProcessor {
         }
     }
 
+    /**
+     * Processing a file or directory using the Mustache template and save it in the destination directory
+     *
+     * @param component       of the project to be created
+     * @param destinationPath the destination path to create the file or directory
+     * @param currentPath     the current path of the file or directory to be processed
+     * @param relativePath    the relative path to be created in the destination path
+     */
     private void process(ComponentAddRequest component, Path destinationPath, Path currentPath, String relativePath) {
         if (currentPath.toFile().isDirectory() && !relativePath.isEmpty()) {
             log.debug("Create directory {}", relativePath);
@@ -94,14 +116,25 @@ public class TemplateProcessor {
                 log.error("Could not create directory: {}", destinationPath);
             }
         } else if (currentPath.toFile().isFile()) {
-            log.debug("Create file {}", relativePath);
 
             Template template = mustache.compile(relativePath);
             String renamedFile = template.execute(component);
+            File destinationFile = new File(destinationPath + renamedFile);
+
+            // Candidate to be in a future manifest
+            if (currentPath.toFile().toString().endsWith(".jar")) {
+                log.debug("Copy file {}", relativePath);
+                try {
+                    FileUtils.copyFile(currentPath.toFile(), destinationFile);
+                    return;
+                } catch (IOException e) {
+                    log.error("Could not copy file {}", currentPath, e);
+                }
+            }
 
             log.debug("Processing template path {}", currentPath);
             try (Reader reader = new FileReader(currentPath.toFile());
-                 Writer fileWriter = new FileWriter(destinationPath + renamedFile)) {
+                 Writer fileWriter = new FileWriter(destinationFile)) {
                 log.debug("Current path is a file");
                 template = mustache.compile(reader);
                 template.execute(component, fileWriter);

@@ -49,8 +49,8 @@ public class ComponentController {
     @PostMapping("/api/project/generate")
     public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ProjectProperties component) throws InvalidTemplateException, IOException, URISyntaxException {
         byte[] content;
-        if (component.getType().equals(ApplicationType.JAVA_SPRING_BOOT)) {
-            // Only the Spring Boot 1.5.x template will be using the new engine until we migrate the other templates
+        if (component.getType().equals(ApplicationType.JAVA_SPRING_BOOT_2)) {
+            // Only the Spring Boot 2.0.x template will be using the new engine until we migrate the other templates
             content = templateProcessor.createApplication(component);
         } else {
             content = projectCreationService.create(convertToProjectCreation(component));

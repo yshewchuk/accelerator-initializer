@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 class HealthCheckJsCreator implements FileCreator<ProjectCreation> {
 
-    static final String HEALTHCHECK_JS_TPL_PATH = "templates/projectCreation/node/healthCheck.js.tpl";
+    private static final String HEALTHCHECK_JS_TPL_PATH = "templates/projectCreation/node/healthCheck.js.tpl";
     private final FileProcessor fileProcessor;
 
     public HealthCheckJsCreator(FileProcessor fileProcessor) {

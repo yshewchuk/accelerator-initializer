@@ -14,7 +14,7 @@ tags:
   - name: component-controller
     description: Component Controller
 paths:
-  /api/projects/components/download:
+  /api/project/generate:
     post:
       tags:
         - component-controller
@@ -30,7 +30,7 @@ paths:
           description: component
           required: true
           schema:
-            $ref: '#/definitions/ComponentAddRequest'
+            $ref: '#/definitions/ProjectProperties'
       responses:
         '200':
           description: OK
@@ -47,12 +47,12 @@ paths:
           description: Not Found
       deprecated: false
 definitions:
-  ComponentAddRequest:
+  ProjectProperties:
     type: object
     properties:
-      name:
+      group:
         type: string
-      projectKey:
+      name:
         type: string
       type:
         type: string
@@ -62,4 +62,4 @@ definitions:
           - JAVA_LIBRARY
           - NODE
           - REACT
-    title: ComponentAddRequest
+    title: ProjectProperties

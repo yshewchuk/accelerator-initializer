@@ -64,8 +64,8 @@ class BuildDotGradleCreator implements FileCreator<ProjectCreation> {
                             .put("SPRING_BOOT_VERSION", request.discoverySpringBootVersion())
                             .put("IS_SPRING_BOOT", request.isSpringBootApp())
                             .put("IS_SPRING_BOOT2", request.getType() == ApplicationType.JAVA_SPRING_BOOT_2)
-                            .put("REPOSITORY_NAME", request.getRepositoryName())
-                            .put("GROUP_ID", request.getProjectKey())
+                            .put("REPOSITORY_NAME", request.getName())
+                            .put("GROUP_ID", request.getGroup())
                             .build();
     }
     

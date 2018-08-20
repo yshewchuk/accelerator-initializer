@@ -1,23 +1,15 @@
-buildscript {
-    ext {
-        springBootVersion = '1.5.15.RELEASE'
-    }
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'java'
+    id 'idea'
+    id 'jacoco'
+    id 'org.springframework.boot' version '2.0.4.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'maven-publish'
 }
 
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'jacoco'
-apply plugin: 'org.springframework.boot'
-
-description 'accp-initializer'
-group = 'accp'
-version = '1.0'
+description 'Accelerator initializer - project generation API'
+group = 'com.scotiabank'
+version = '0.1'
 sourceCompatibility = 1.8
 
 repositories {
@@ -27,8 +19,6 @@ repositories {
 ext {
     lombokVersion = '1.18.2'
     springfoxSwaggerVersion = '2.9.2'
-    guavaVersion = '20.0'
-    commonsLang3Version = '3.7'
     commonsIOVersion = '2.6'
 }
 
@@ -49,9 +39,7 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile "com.google.guava:guava:$guavaVersion"
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile "org.apache.commons:commons-lang3:$commonsLang3Version"
     compile "commons-io:commons-io:$commonsIOVersion"
     compile group: 'org.apache.commons', name: 'commons-text', version: '1.4'
     compile 'org.springframework.boot:spring-boot-starter-mustache'
@@ -89,7 +77,7 @@ jacocoTestCoverageVerification {
 
             limit {
                 counter = "INSTRUCTION"
-                minimum = 0.35
+                minimum = 0.38
             }
 
             limit {
@@ -139,14 +127,49 @@ task jacocoIntegrationTestCoverageVerification (type: JacocoCoverageVerification
 
             limit {
                 counter = "INSTRUCTION"
-                minimum = 0.07
+                minimum = 0.90
             }
 
             limit {
                 counter = "BRANCH"
-                minimum = 0.07
+                minimum = 0.69
             }
         }
     }
 }
 check.dependsOn jacocoIntegrationTestCoverageVerification
+
+task sourceJar(type: Jar) {
+    classifier "sources"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            artifact jar
+            artifact sourceJar
+
+            pom {
+                name = 'Accelerator Initializer'
+                description = project.description
+                url = 'https://github.com/scotiabank/accelerator-initializer'
+                licenses {
+                    license {
+                        name = 'Mozilla Public License 2.0'
+                        url = 'https://www.mozilla.org/en-US/MPL/2.0/'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/scotiabank/accelerator-initializer.git'
+                    url = 'https://github.com/scotiabank/accelerator-initializer'
+                }
+            }
+        }
+    }
+}
+
+task prepareForPublish(dependsOn: ['jar', 'sourceJar', 'generatePomFileForMavenPublication']) {
+
+}

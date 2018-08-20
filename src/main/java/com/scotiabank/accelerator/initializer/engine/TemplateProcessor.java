@@ -2,7 +2,7 @@ package com.scotiabank.accelerator.initializer.engine;
 
 import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
-import com.scotiabank.accelerator.initializer.controller.request.ComponentAddRequest;
+import com.scotiabank.accelerator.initializer.controller.request.ProjectProperties;
 import com.scotiabank.accelerator.initializer.core.zip.ZipFile;
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
 import lombok.extern.slf4j.Slf4j;
@@ -44,11 +44,11 @@ public class TemplateProcessor {
     /**
      * Create a new project based on an existing template, customize the values with Mustache template engine and provide in the component input param
      *
-     * @param component {@link ComponentAddRequest} attributes to create a new project
+     * @param component {@link ProjectProperties} attributes to create a new project
      * @return A byte[] containing the new project zipped.
      * @throws IOException if the path could not be deleted.
      */
-    public byte[] createApplication(ComponentAddRequest component) throws InvalidTemplateException, URISyntaxException, IOException {
+    public byte[] createApplication(ProjectProperties component) throws InvalidTemplateException, URISyntaxException, IOException {
         log.debug("Start the creation of application '{}' with template '{}'", component.getName(), component.getType());
 
         log.debug("Locate the source directory of the template");
@@ -109,7 +109,7 @@ public class TemplateProcessor {
      * @param currentPath     the current path of the file or directory to be processed
      * @param relativePath    the relative path to be created in the destination path
      */
-    private void process(ComponentAddRequest component, Path destinationPath, Path currentPath, String relativePath) {
+    private void process(ProjectProperties component, Path destinationPath, Path currentPath, String relativePath) {
         if (currentPath.toFile().isDirectory() && !relativePath.isEmpty()) {
             log.debug("Create directory {}", relativePath);
             if (!Paths.get(destinationPath + relativePath).toFile().mkdirs()) {
@@ -156,7 +156,7 @@ public class TemplateProcessor {
      * @param path                    the path to process
      * @return Path of the relative directory
      */
-    private String getRelativePath(ComponentAddRequest component, URI sourceTemplateDirectory, Path path) {
+    private String getRelativePath(ProjectProperties component, URI sourceTemplateDirectory, Path path) {
         Path sourcePath = Paths.get(sourceTemplateDirectory);
         String relativePath = StringUtils.removeStart(path.toString(), sourcePath.toString());
 

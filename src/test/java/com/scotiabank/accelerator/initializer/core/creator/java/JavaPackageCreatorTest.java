@@ -51,7 +51,7 @@ public class JavaPackageCreatorTest {
     @Test
     public void assertPackagePathIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
                         .build();
         this.creator.create(request);

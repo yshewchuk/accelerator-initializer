@@ -1,22 +1,24 @@
 language: java
 sudo: false
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 os:
-  - linux
-
+- linux
 branches:
   only:
-    - master
-
+  - master
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
-script: ./gradlew clean build
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+script: "./gradlew clean check prepareForPublish"
+deploy:
+  provider: bintray
+  file: "artifact.json"
+  user: "yshewchuk" # temporarily using my personal account until we get approval for organization Bintray account
+  key:
+    secure: wAGH2DL18NBjArcdfk9PhF6wcH6uSeH1UpwR6SX66iApHq9luBKz2pYbm9BFkTpytY4Q5/eievrcicUDFqZC5bd6de+ExRiyl7QvQeBfQi6NCFhFHhcF/Ep6WyhnoW75YzocbHM/tkjUsapQZY4LmCagZCLPdi9yQ1VTO/CBx+CFl1NlSVxWbsOwX2SfJMkKs1xa/1k06qTOawS+VSC7hv75kb78zlB8Arg/0BNFvBKZV2zpUhCIb9v7vu+Skql3w8imugsztabBAICrWGVJq0MK+CMfsfLsXKjcVVssTS9+p/JGIk9+rSoc8t7Tul9+esH8CIu955EdDrfnjApjcPhaDyqyU9aaG1yd9lA51+6DXkCYmERmdjYUGDQfDAMcCCG4heBgKJqfeWRkO61S+y8Sjt4z3Uwn6nZMh3VwfBv9jjyTs1ccbSs2uO6y9Ll4ka1SKqzxnG93qMFW1T99KxQ1wdmwm2r51N/cGCCJtq5f0MjGjWO8QRG3MtP8QYkLWxhAu7PdhEnE7MkpxfJ3CXRcUyrcYNiyTvKN9Wwxy+GCvueCP5cs5s8T4BZP41De2BBhfMWG/aOI/VxCXkansvCRr4HHFfMLwOH/MeGm0IIoNkCpBMDUChRDyxTrZO0iO88OliAVYDMw1Sikia4yVJvla954EdTuxWDZ7doGxtc=
+  skip_cleanup: true # to upload artifacts created during the build

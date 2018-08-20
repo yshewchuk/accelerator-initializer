@@ -9,25 +9,22 @@ import javax.validation.constraints.Pattern;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
-public class ComponentAddRequest {
+@Getter @Setter
+public class ProjectProperties {
 
     @Length(max = 128)
     @Pattern(regexp = "^([a-z0-9]|[a-z0-9][a-z0-9\\-_.]+)$", message = "{accp.initializer.component.invalid.name}")
     private String name;
+    
+    private String group;
 
-    private String groupId; // Java groupId
-
-    @NotEmpty
-    private String projectKey;
+    private String groupId;
 
     @NotNull
     private ApplicationType type;

@@ -25,7 +25,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @React
 class AppJsCreator implements FileCreator<ProjectCreation> {
 
-    static final String APP_JS_TPL_PATH = "templates/projectCreation/react/App.js.tpl";
+    private static final String APP_JS_TPL_PATH = "templates/projectCreation/react/App.js.tpl";
     private final FileProcessor fileProcessor;
 
     public AppJsCreator(FileProcessor fileProcessor) {

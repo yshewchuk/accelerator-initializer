@@ -54,7 +54,7 @@ public class JavaIntegrationTestPackageCreatorTest {
     @Test
     public void assertPackagePathIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
                         .build();
         this.creator.create(request);
@@ -64,23 +64,22 @@ public class JavaIntegrationTestPackageCreatorTest {
                   .stream()
                   .map(File::getPath)
                   .collect(Collectors.toList());
-        assertEquals(paths(request.getProjectKey()), collectedPaths);
+        assertEquals(paths(), collectedPaths);
     }
     
     @Test
     public void assertPackageInfoIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
-                        .build();
-        this.creator.create(request);
+                        .build();        this.creator.create(request);
         verify(this.fileProcessor, times(1)).createDirectories(any());
         verify(this.fileProcessor, times(1)).touch(pathCaptor.capture());
                 
         assertEquals("package-info.java", pathCaptor.getValue().toFile().getName());
     }
     
-    private List<String> paths(String ciadKey) {
+    private List<String> paths() {
         return Lists.newArrayList(Paths.get("./src/acceptanceTest/java/com/hopper").toString());
     }
 }

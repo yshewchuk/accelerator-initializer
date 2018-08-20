@@ -4,23 +4,22 @@
  */
 package com.scotiabank.accelerator.initializer.controller;
 
-import com.scotiabank.accelerator.initializer.engine.InvalidTemplateException;
-import com.scotiabank.accelerator.initializer.engine.TemplateProcessor;
-import com.scotiabank.accelerator.initializer.controller.request.ComponentAddRequest;
+import com.scotiabank.accelerator.initializer.controller.request.ProjectProperties;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
-import com.scotiabank.accelerator.initializer.core.zip.ZipFile;
+import com.scotiabank.accelerator.initializer.engine.InvalidTemplateException;
+import com.scotiabank.accelerator.initializer.engine.TemplateProcessor;
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
@@ -47,8 +46,8 @@ public class ComponentController {
         this.templateProcessor = templateProcessor;
     }
 
-    @PostMapping("/api/projects/components/download")
-    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ComponentAddRequest component) throws URISyntaxException, InvalidTemplateException, IOException {
+    @PostMapping("/api/project/generate")
+    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ProjectProperties component) throws InvalidTemplateException, IOException, URISyntaxException {
         byte[] content;
         if (component.getType().equals(ApplicationType.JAVA_SPRING_BOOT)) {
             // Only the Spring Boot 1.5.x template will be using the new engine until we migrate the other templates
@@ -64,17 +63,17 @@ public class ComponentController {
                 .body(content);
     }
 
-    private ProjectCreation convertToProjectCreation(ComponentAddRequest request) {
-        return ProjectCreation.builder()
-                .projectKey(request.getProjectKey())
-                .repositoryName(request.getName())
+    private ProjectCreation convertToProjectCreation(ProjectProperties request) {
+        return  ProjectCreation.builder()
+                .group(request.getGroup())
+                .name(request.getName())
                 .type(request.getType())
                 .rootDir(initProjectDir(request))
                 .build();
     }
 
-    private String initProjectDir(ComponentAddRequest request) {
-        String projectName = String.format(TEMP_PATH, request.getProjectKey().toLowerCase(), request.getName().toLowerCase());
+    private String initProjectDir(ProjectProperties request) {
+        String projectName = String.format(TEMP_PATH, request.getGroup().toLowerCase(), request.getName().toLowerCase());
         File path = Paths.get(rootDir, projectName).toFile();
         fileProcessor.createDirectories(path);
         log.info("Creating path {} ", path);

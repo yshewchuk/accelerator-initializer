@@ -52,7 +52,7 @@ public class SpringbootApplicationTestClassCreatorTest {
     @Test
     public void assertApplicationJavaClassIsCreated() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
                         .build();
         this.creator.create(request);
@@ -64,7 +64,7 @@ public class SpringbootApplicationTestClassCreatorTest {
     @Test
     public void assertTemplateIsParsed() {
         ProjectCreation request = ProjectCreation.builder()
-                        .projectKey("hopper")
+                        .group("hopper")
                         .rootDir(".")
                         .build();
         this.creator.create(request);

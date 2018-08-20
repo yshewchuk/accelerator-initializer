@@ -6,6 +6,7 @@ package com.scotiabank.accelerator.initializer.core.creator.java;
 
 import java.nio.file.Paths;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.SpringBoot;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreationOrder;
@@ -22,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @SpringBoot
 class ApplicationYamlCreator implements FileCreator<ProjectCreation> {
-
+    @VisibleForTesting
     static final String APPLICATION_YML_PATH = "/src/main/resources/application.yml";
     private final FileProcessor fileProcessor;
 
@@ -32,7 +33,7 @@ class ApplicationYamlCreator implements FileCreator<ProjectCreation> {
     
     @Override
     public void create(ProjectCreation request) {
-        log.info("Creating application.yml file for {}-{} ", request.getProjectKey(), request.getRepositoryName());
+        log.info("Creating application.yml file for {}-{} ", request.getGroup(), request.getName());
         fileProcessor.touch(Paths.get(request.getRootDir(), APPLICATION_YML_PATH));
     }
     

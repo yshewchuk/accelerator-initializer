@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.node;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.Node;
@@ -23,6 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 class PackageJsonCreator implements FileCreator<ProjectCreation> {
 
+    @VisibleForTesting
     static final String PACKAGE_JSON_TPL_PATH = "projectCreation/node/package.json.tpl";
     private final FileProcessor fileProcessor;
 
@@ -40,8 +42,8 @@ class PackageJsonCreator implements FileCreator<ProjectCreation> {
     }
     
     private void writeContentTo(File packageJson, ProjectCreation request) {
-        String projectNameValue = request.getProjectKey().toLowerCase();
-        String repoNameValue = request.getRepositoryName().toLowerCase();
+        String projectNameValue = request.getGroup().toLowerCase();
+        String repoNameValue = request.getName().toLowerCase();
         String appNameValue = projectNameValue + "-" + repoNameValue;
         String content = fileProcessor.processTemplate(PACKAGE_JSON_TPL_PATH, ImmutableMap.of("APP_NAME", appNameValue, "REPO_NAME", repoNameValue, "PROJECT_NAME", projectNameValue));
         fileProcessor.writeContentTo(packageJson, content);

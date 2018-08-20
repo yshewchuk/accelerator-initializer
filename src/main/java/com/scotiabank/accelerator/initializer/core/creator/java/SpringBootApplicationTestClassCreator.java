@@ -38,7 +38,7 @@ class SpringBootApplicationTestClassCreator implements FileCreator<ProjectCreati
     public void create(ProjectCreation request) {
         log.info("Creating SpringBoot ApplicationTest.java file");
         Path srcPath = Paths.get(request.getRootDir(), CreatorConstants.SRC_TEST_JAVA_PATH);
-        Path packagePath = Paths.get("com", request.getProjectKey().toLowerCase(), "ApplicationTest.java");
+        Path packagePath = Paths.get("com", request.getGroup().toLowerCase(), "ApplicationTest.java");
         File applicationJavaClass = fileProcessor.touch(srcPath.resolve(packagePath));
         writeContentTo(applicationJavaClass, request);
     }

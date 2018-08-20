@@ -29,7 +29,7 @@ class JavaIntegrationTestPackageCreator implements FileCreator<ProjectCreation> 
     
     @Override
     public void create(ProjectCreation request) {
-        String packagePath = String.format(PACKAGE_PATH, request.getProjectKey());
+        String packagePath = String.format(PACKAGE_PATH, request.getGroup());
         Path integTest = Paths.get(request.getRootDir(),  SRC_INTEGRATION_TEST_JAVA_PATH, packagePath);
         fileProcessor.createDirectories(integTest.toFile());
         new PackageInfo(fileProcessor)

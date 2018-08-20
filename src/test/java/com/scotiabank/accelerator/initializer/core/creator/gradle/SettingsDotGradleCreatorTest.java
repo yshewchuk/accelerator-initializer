@@ -46,7 +46,10 @@ public class SettingsDotGradleCreatorTest {
     public void assertItCopiesContentToFile() throws FileNotFoundException {
         File f = new File("./settings.gradle");
         when(this.fileProcessor.touch(any())).thenReturn(f);
-        ProjectCreation request = ProjectCreation.builder().repositoryName("hopper").rootDir(".").build();
+        ProjectCreation request = ProjectCreation.builder()
+            .name("hopper")
+            .rootDir(".")
+            .build();
         creator.create(request);
         verify(this.fileProcessor, times(1)).writeContentTo(eq(f), eq("rootProject.name = 'hopper'"));
     }

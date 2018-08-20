@@ -36,7 +36,7 @@ The current flow for creating a new project is shown below:
 
 And the API that enables this is:
 
-### /api/projects/components/download
+### /api/project/generate
 ---
 ##### ***POST***
 **Summary:** userDownload
@@ -45,7 +45,7 @@ And the API that enables this is:
 
 | Name | Located in | Description | Required | Schema |
 | ---- | ---------- | ----------- | -------- | ---- |
-| component | body | component | Yes | [ComponentAddRequest](#componentaddrequest) |
+| component | body | component | Yes | [ProjectProperties](#projectproperties) |
 
 **Responses**
 
@@ -60,12 +60,12 @@ And the API that enables this is:
 ### Models
 ---
 
-### ComponentAddRequest  
+### ProjectProperties  
 
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
+| group | string |  | No |
 | name | string |  | No |
-| projectKey | string |  | No |
 | type | string |  | No |
 
 ## Next State
@@ -137,7 +137,7 @@ Along with this, some API changes would be beneficial to clarify the usage, as w
 | Name | Type | Description | Required |
 | ---- | ---- | ----------- | -------- |
 | name | string |  | No |
-| projectKey | string |  | No |
+| group | string |  | No |
 | type | string |  | No |
 
 ## Possible Future State

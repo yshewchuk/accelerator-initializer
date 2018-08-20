@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.common;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.JavaLibrary;
@@ -28,6 +29,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 @JavaLibrary
 public class GitIgnoreCreator implements FileCreator<ProjectCreation> {
+    @VisibleForTesting
     static final String GIT_IGNORE_TEMPLATE_PATH = "projectCreation/gitignore.tpl";
     private final FileProcessor fileProcessor;
 

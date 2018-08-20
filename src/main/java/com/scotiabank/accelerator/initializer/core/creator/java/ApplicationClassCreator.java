@@ -8,6 +8,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.JavaLibrary;
 import com.scotiabank.accelerator.initializer.core.creator.annotation.SpringBoot;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreationOrder;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @JavaLibrary
 @SpringBoot
 class ApplicationClassCreator implements FileCreator<ProjectCreation> {
-    
+    @VisibleForTesting
     static final String APPLICATION_TPL_PATH = "projectCreation/Application.tpl";
     private final FileProcessor fileProcessor;
 
@@ -40,7 +41,7 @@ class ApplicationClassCreator implements FileCreator<ProjectCreation> {
     public void create(ProjectCreation request) {
         log.info("Creating Application.java file");
         Path srcPath = Paths.get(request.getRootDir(), SRC_MAIN_JAVA_PATH);
-        Path packagePath = Paths.get("com", request.getProjectKey().toLowerCase(), "Application.java");
+        Path packagePath = Paths.get("com", request.getGroup().toLowerCase(), "Application.java");
         File applicationJavaClass = fileProcessor.touch(srcPath.resolve(packagePath));
         writeContentTo(applicationJavaClass, request);
     }

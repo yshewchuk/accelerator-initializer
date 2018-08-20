@@ -25,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @JavaLibrary
 class PackageInfoCreator implements FileCreator<ProjectCreation> {
 
-    static final String PACKAGE_INFO_TPL_PATH = "projectCreation/package-info.tpl";
     private final FileProcessor fileProcessor;
 
     public PackageInfoCreator(FileProcessor fileProcessor) {
@@ -36,7 +35,7 @@ class PackageInfoCreator implements FileCreator<ProjectCreation> {
     public void create(ProjectCreation request) {
         log.info("Creating package-info.java file");
         Path srcPath = Paths.get(request.getRootDir(), CreatorConstants.SRC_TEST_JAVA_PATH);
-        Path packagePath = Paths.get("com", request.getProjectKey().toLowerCase(), "package-info.java");
+        Path packagePath = Paths.get("com", request.getGroup().toLowerCase(), "package-info.java");
         new PackageInfo(fileProcessor)
             .create(srcPath.resolve(packagePath), request.resolvePackageName());
     }

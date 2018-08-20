@@ -14,8 +14,8 @@ import lombok.Getter;
 public class ProjectCreation {
     
     private String rootDir;
-    private String projectKey;
-    private String repositoryName;
+    private String group;
+    private String name;
     private ApplicationType type;
 
     public boolean isJavaBasedProject() {
@@ -33,7 +33,7 @@ public class ProjectCreation {
     }
 
     public String resolvePackageName() {
-        return "com."+ getProjectKey().toLowerCase();
+        return "com."+ getGroup().toLowerCase();
     }
     
     public String discoverySpringBootVersion() {

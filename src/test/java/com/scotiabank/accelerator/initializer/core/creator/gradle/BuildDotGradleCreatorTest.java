@@ -40,8 +40,8 @@ public class BuildDotGradleCreatorTest {
         when(this.fileProcessor.touch(any())).thenReturn(buildDotGradle);
         ProjectCreation request = ProjectCreation.builder()
                                     .rootDir(".")
-                                    .repositoryName("initializer")
-                                    .projectKey("hopper")
+                                    .name("initializer")
+                                    .group("hopper")
                                     .build();
         creator.create(request);
         verify(this.fileProcessor, times(1)).touch(Paths.get("./build.gradle"));

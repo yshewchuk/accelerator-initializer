@@ -13,7 +13,7 @@ import com.google.common.io.Files;
 public class InitializerConfig {
     
     @Bean
-    String rootDir() {
+    public String rootDir() {
         return Files.createTempDir().getAbsolutePath();
     }
 }

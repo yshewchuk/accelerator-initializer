@@ -51,8 +51,8 @@ public class ProjectCreationServiceTest {
     @Test
     public void assertPublishEvent() {
         ProjectCreation creation = ProjectCreation.builder()
-            .projectKey("hopper")
-            .repositoryName("initializer")
+            .group("hopper")
+            .name("initializer")
             .type(ApplicationType.NODE).build();
 
         this.creator.create(creation);

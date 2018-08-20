@@ -4,6 +4,7 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.pcf;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreationOrder;
 import com.scotiabank.accelerator.initializer.core.creator.FileCreator;
@@ -27,6 +28,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Node
 @React
 class ManifestFileCreator implements FileCreator<ProjectCreation> {
+    @VisibleForTesting
     static final String MANIFEST_FILE_TEMPLATE = "projectCreation/manifest.tpl";
     private static final String APPLICATION_NAME = "%s";
     private static final String FILE_NAME = "manifest.yml";
@@ -38,7 +40,7 @@ class ManifestFileCreator implements FileCreator<ProjectCreation> {
 
     @Override
     public void create(ProjectCreation request) {
-        log.info("Creating manifest files for project {}", request.getRepositoryName());
+        log.info("Creating manifest files for project {}", request.getName());
             String templateContent = processTemplate(request);
             String fileName = String.format(FILE_NAME);
             File manifestFile = createFile(fileName, request.getRootDir());
@@ -46,7 +48,7 @@ class ManifestFileCreator implements FileCreator<ProjectCreation> {
     }
 
     private String processTemplate(ProjectCreation request) {
-        String applicationName = String.format(APPLICATION_NAME, request.getRepositoryName());
+        String applicationName = String.format(APPLICATION_NAME, request.getName());
         return fileProcessor.processTemplate(MANIFEST_FILE_TEMPLATE,
                 ImmutableMap.of("APPLICATION_NAME", applicationName, "IS_NODE_APP", request.isNodeApp(), "IS_REACT", request.getType() == ApplicationType.REACT));
     }

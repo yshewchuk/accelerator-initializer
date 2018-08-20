@@ -14,7 +14,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.File;
 import java.io.InputStream;
 
 import static org.mockito.Matchers.anyString;
@@ -26,10 +25,7 @@ import static org.mockito.Mockito.when;
 public class GradleBinaryCreatorTest {
     @Mock
     private FileProcessor fileProcessor;
-    
-    @Mock
-    private File file;
-    
+
     @Mock
     private InputStream inputStream;
     

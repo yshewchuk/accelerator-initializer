@@ -63,6 +63,7 @@ Including one of the following in the request body:
 {
   "name": "boot-app-2",
   "group": "scotiabank",
+  "groupId": "com.scotiabank",
   "type": "JAVA_SPRING_BOOT_2"
 }
 ```

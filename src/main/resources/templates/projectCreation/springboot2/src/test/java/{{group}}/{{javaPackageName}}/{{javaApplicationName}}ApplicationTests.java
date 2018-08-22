@@ -1,4 +1,4 @@
-package {{groupId}}.{{javaPackageName}};
+package {{group}}.{{javaPackageName}};
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

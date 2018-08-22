@@ -26,8 +26,6 @@ public class ProjectProperties {
     @NotEmpty
     private String group;
 
-    private String groupId;
-
     @NotNull
     private ApplicationType type;
 

@@ -8,9 +8,6 @@ import com.scotiabank.accelerator.initializer.controller.request.ProjectProperti
 import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
-import com.scotiabank.accelerator.initializer.engine.InvalidTemplateException;
-import com.scotiabank.accelerator.initializer.engine.TemplateProcessor;
-import com.scotiabank.accelerator.initializer.model.ApplicationType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Paths;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -29,32 +24,23 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Slf4j
 public class ComponentController {
 
-    private static final String TEMP_PATH = "%s/%s";
+    private static final String TEMP_PATH = "%s" + File.separatorChar + "%s";
 
     private final ProjectCreationService projectCreationService;
     private final FileProcessor fileProcessor;
     private final String rootDir;
-    private final TemplateProcessor templateProcessor;
 
     public ComponentController(ProjectCreationService projectCreationService,
                                FileProcessor fileProcessor,
-                               String rootDir,
-                               TemplateProcessor templateProcessor) {
+                               String rootDir) {
         this.projectCreationService = checkNotNull(projectCreationService);
         this.fileProcessor = checkNotNull(fileProcessor);
         this.rootDir = checkNotNull(rootDir);
-        this.templateProcessor = templateProcessor;
     }
 
     @PostMapping("/api/project/generate")
-    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ProjectProperties component) throws InvalidTemplateException, IOException, URISyntaxException {
-        byte[] content;
-        if (component.getType().equals(ApplicationType.JAVA_SPRING_BOOT_2)) {
-            // Only the Spring Boot 2.0.x template will be using the new engine until we migrate the other templates
-            content = templateProcessor.createApplication(component);
-        } else {
-            content = projectCreationService.create(convertToProjectCreation(component));
-        }
+    public ResponseEntity<byte[]> userDownload(@Validated @RequestBody ProjectProperties component) {
+        byte[] content = projectCreationService.create(convertToProjectCreation(component));
 
         String contentDispositionValue = "attachment; filename=\"" + component.getName() + ".zip\"";
         return ResponseEntity.ok()
@@ -64,7 +50,7 @@ public class ComponentController {
     }
 
     private ProjectCreation convertToProjectCreation(ProjectProperties request) {
-        return  ProjectCreation.builder()
+        return ProjectCreation.builder()
                 .group(request.getGroup())
                 .name(request.getName())
                 .type(request.getType())

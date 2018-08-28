@@ -8,7 +8,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
@@ -28,10 +27,4 @@ public class ProjectProperties {
 
     @NotNull
     private ApplicationType type;
-
-    @JsonIgnore
-    private String javaApplicationName;
-
-    @JsonIgnore
-    private String javaPackageName;
 }

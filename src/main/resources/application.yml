@@ -11,9 +11,8 @@ endpoints:
   health:
     enabled: true
 
-
 server:
   port: 8086
 
 initializer:
-  template-path: templates/projectCreation/
+  template-path: classpath:templates/projectCreation

@@ -32,7 +32,7 @@ public class TemplateProcessorTest {
     }
 
     @Test
-    public void processRelativePath_withDirectoryContainingVariables_shouldReturnProcessedRelativePath() {
+    public void processRelativePathWithDirectoryContainingVariablesShouldReturnProcessedRelativePath() {
         ProjectCreation projectCreation = ProjectCreation.builder()
                 .type(ApplicationType.JAVA_SPRING_BOOT_2)
                 .group("com.test")
@@ -46,7 +46,7 @@ public class TemplateProcessorTest {
     }
 
     @Test
-    public void processRelativePath_withDirectoryWithoutVariables_shouldReturnRelativePath() {
+    public void processRelativePathWithDirectoryWithoutVariablesShouldReturnRelativePath() {
         ProjectCreation projectCreation = ProjectCreation.builder()
                 .type(ApplicationType.JAVA_SPRING_BOOT_2)
                 .build();
@@ -59,7 +59,7 @@ public class TemplateProcessorTest {
     }
 
     @Test
-    public void processRelativePath_withFilenameContainingVariables_shouldReturnProcessedRelativePath() {
+    public void processRelativePathWithFilenameContainingVariablesShouldReturnProcessedRelativePath() {
         ProjectCreation projectCreation = ProjectCreation.builder()
                 .type(ApplicationType.JAVA_SPRING_BOOT_2)
                 .group("com.test")
@@ -74,7 +74,7 @@ public class TemplateProcessorTest {
     }
 
     @Test
-    public void processRelativePath_withFilenameWithoutVariables_shouldReturnRelativePath() throws IOException, URISyntaxException {
+    public void processRelativePathWithFilenameWithoutVariablesShouldReturnRelativePath() throws IOException, URISyntaxException {
         ProjectCreation projectCreation = ProjectCreation.builder()
                 .type(ApplicationType.JAVA_SPRING_BOOT_2)
                 .build();

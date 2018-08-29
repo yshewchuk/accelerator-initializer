@@ -36,7 +36,7 @@ public class SpringBoot2ProjectTest {
     public void whenDownloadBodyIsOkThenExpect201() throws Exception {
         this.mvc.perform(post("/api/project/generate")
             .contentType(MediaType.APPLICATION_JSON_UTF8)
-            .content("{\"group\" : \"HOPPER\", \"type\" : \"JAVA_SPRING_BOOT_2\", \"name\": \"hopper-intake\", \"groupId\": \"com.test\"}")
+            .content("{\"group\" : \"com.test\", \"type\" : \"JAVA_SPRING_BOOT_2\", \"name\": \"hopper-intake\"}")
         )
             .andExpect(executionTimeLessThan(stopwatch, 1500))
             .andDo(print())

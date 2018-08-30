@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -18,6 +19,9 @@ import static java.nio.file.Files.createTempDirectory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+@TestPropertySource(properties = {
+        "initializer.template-path=templates/projectCreation",
+})
 public class TemplateProcessorTest {
     private String sourceTemplateParentPath;
 
@@ -33,15 +37,23 @@ public class TemplateProcessorTest {
     }
 
     @Test
-    public void createApplicationWithProjectInformationShouldCallProcessMethod() {
+    public void createApplicationWithProjectInformationShouldCallProcessMethod() throws IOException {
+        Path temporaryPath = createTempDirectory(null);
+
         ProjectCreation projectCreation = ProjectCreation.builder()
                 .type(ApplicationType.JAVA_SPRING_BOOT_2)
                 .group("com.test")
-                .name("test-boot-app")
+                .name("test-app")
+                .rootDir(temporaryPath.toString())
                 .build();
 
         templateProcessor.createApplication(projectCreation);
-        assertThat(projectCreation.getName()).isNotBlank();
+
+        assertThat(Paths.get(temporaryPath.toString(), "src/main/java/com/test/testapp").toFile().exists()).isTrue();
+        assertThat(Paths.get(temporaryPath.toString(), "src/main/java/com/test/testapp/TestAppApplication.java").toFile().exists()).isTrue();
+        assertThat(Paths.get(temporaryPath.toString(), "gradle/wrapper/gradle-wrapper.jar").toFile().exists()).isTrue();
+
+        FileUtils.deleteDirectory(temporaryPath.toFile());
     }
 
     @Test

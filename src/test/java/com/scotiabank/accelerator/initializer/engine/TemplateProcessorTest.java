@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
@@ -19,9 +18,6 @@ import static java.nio.file.Files.createTempDirectory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@TestPropertySource(properties = {
-        "initializer.template-path=templates/projectCreation",
-})
 public class TemplateProcessorTest {
     private String sourceTemplateParentPath;
 
@@ -34,6 +30,17 @@ public class TemplateProcessorTest {
     public void setUp() throws URISyntaxException {
         sourceTemplateParentPath = Paths.get(getClass().getClassLoader().getResource(sourceTemplateParent).toURI()).toString();
         templateProcessor = new TemplateProcessor(sourceTemplateParent);
+    }
+
+    @Test
+    public void createApplicationWithProjectInformationShouldCallProcessMethod() {
+        ProjectCreation projectCreation = ProjectCreation.builder()
+                .type(ApplicationType.JAVA_SPRING_BOOT_2)
+                .group("com.test")
+                .name("test-boot-app")
+                .build();
+
+        templateProcessor.createApplication(projectCreation);
     }
 
     @Test

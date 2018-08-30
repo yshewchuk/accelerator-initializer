@@ -41,6 +41,7 @@ public class TemplateProcessorTest {
                 .build();
 
         templateProcessor.createApplication(projectCreation);
+        assertThat(projectCreation.getName()).isNotBlank();
     }
 
     @Test

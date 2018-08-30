@@ -60,7 +60,7 @@ public class TemplateProcessor {
      * @param currentPath  the current path of the file or directory to be processed
      * @param relativePath the relative path to be created in the destination path
      */
-    void process(ProjectCreation request, Path currentPath, String relativePath) {
+    protected void process(ProjectCreation request, Path currentPath, String relativePath) {
         if (currentPath.toFile().isDirectory()
                 && !relativePath.isEmpty()
                 && (!Paths.get(request.getRootDir() + relativePath).toFile().mkdirs())) {

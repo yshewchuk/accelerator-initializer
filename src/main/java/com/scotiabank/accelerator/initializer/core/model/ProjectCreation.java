@@ -41,13 +41,13 @@ public class ProjectCreation {
 
     public String getJavaPackageName() {
         return getName()
-                .replaceAll("[\\.\\-]", "")
+                .replaceAll("[^A-Za-z0-9]+", "")
                 .toLowerCase();
     }
 
     public String getJavaApplicationName() {
         return WordUtils.capitalizeFully(getName(), '.', ' ', '-')
-                .replaceAll("[\\.\\-]", "");
+                .replaceAll("[^A-Za-z0-9]+", "");
     }
 
     public String packageToPath(String content) {

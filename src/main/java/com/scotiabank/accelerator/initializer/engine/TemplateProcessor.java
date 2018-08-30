@@ -7,10 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
@@ -21,12 +21,9 @@ import static java.nio.file.Files.walk;
 @Slf4j
 public class TemplateProcessor {
 
-    private ResourceLoader resourceLoader;
     private final String sourceTemplateParentPath;
 
-    public TemplateProcessor(ResourceLoader resourceLoader,
-                             @Value("${initializer.template-path}") String sourceTemplateParentPath) {
-        this.resourceLoader = resourceLoader;
+    public TemplateProcessor(@Value("${initializer.template-path}") String sourceTemplateParentPath) {
         this.sourceTemplateParentPath = sourceTemplateParentPath;
     }
 
@@ -39,8 +36,8 @@ public class TemplateProcessor {
     public void createApplication(ProjectCreation request) {
         final Path sourceTemplate;
         try {
-            sourceTemplate = Paths.get(resourceLoader.getResource(sourceTemplateParentPath).getFile().toString(), request.getType().toString());
-        } catch (IOException e) {
+            sourceTemplate = Paths.get(Paths.get(getClass().getClassLoader().getResource(sourceTemplateParentPath).toURI()).toString(), request.getType().toString());
+        } catch (URISyntaxException e) {
             log.error("Could not locate the source template directory", e);
             return;
         }
@@ -63,7 +60,7 @@ public class TemplateProcessor {
      * @param currentPath  the current path of the file or directory to be processed
      * @param relativePath the relative path to be created in the destination path
      */
-    protected void process(ProjectCreation request, Path currentPath, String relativePath) {
+    void process(ProjectCreation request, Path currentPath, String relativePath) {
         if (currentPath.toFile().isDirectory()
                 && !relativePath.isEmpty()
                 && (!Paths.get(request.getRootDir() + relativePath).toFile().mkdirs())) {

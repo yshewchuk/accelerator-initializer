@@ -4,16 +4,14 @@
  */
 package com.scotiabank.accelerator.initializer.controller.request;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
-
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Getter @Setter
 public class ProjectProperties {

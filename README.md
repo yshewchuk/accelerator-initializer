@@ -26,7 +26,7 @@ http://localhost:8086/swagger-ui.html
 Or: 
 Use a tool to execute an HTTP POST request to
 ```
-http://localhost:8086/api/projects/components/download
+http://localhost:8086/api/project/generate
 ```
 
 Including one of the following in the request body:

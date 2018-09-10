@@ -6,10 +6,13 @@ spring:
     name: initializer
   mustache:
     suffix:
-endpoints:
-  enabled: false
-  health:
-    enabled: true
+
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
 
 server:
   port: 8086

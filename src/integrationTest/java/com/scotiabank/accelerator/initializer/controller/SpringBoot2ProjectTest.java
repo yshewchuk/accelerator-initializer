@@ -1,62 +1,46 @@
 package com.scotiabank.accelerator.initializer.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scotiabank.accelerator.initializer.controller.request.ProjectProperties;
-import com.scotiabank.accelerator.initializer.core.FileProcessor;
-import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
-import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
-import com.scotiabank.accelerator.initializer.model.ApplicationType;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Stopwatch;
 import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.scotiabank.accelerator.initializer.controller.ExecutionTimeVerifier.executionTimeLessThan;
 import static com.scotiabank.accelerator.initializer.controller.ZipVerifier.isValidZip;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(ComponentController.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@AutoConfigureMockMvc
 public class SpringBoot2ProjectTest {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockBean
-    private ProjectCreationService projectCreationService;
-
-    @MockBean
-    private FileProcessor fileProcessor;
+    @Rule
+    public Stopwatch stopwatch = new Stopwatch() {};
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
 
-    @Test(timeout = 1500L)
-    public void whenDownloadBodyIsOkThenExpect200() throws Exception {
-        ProjectProperties projectProperties = new ProjectProperties();
-        projectProperties.setGroup("com.test");
-        projectProperties.setName("hopper-intake");
-        projectProperties.setType(ApplicationType.JAVA_SPRING_BOOT_2);
-
-        when(projectCreationService.create(any(ProjectCreation.class))).thenReturn(null);
-
+    @Test
+    @SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert") // uses MockMVC assertions
+    public void whenDownloadBodyIsOkThenExpect201() throws Exception {
         this.mvc.perform(post("/api/project/generate")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(objectMapper.writeValueAsBytes(projectProperties)))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM))
+                .content("{\"group\" : \"HOPPER\", \"type\" : \"JAVA_SPRING_BOOT_2\", \"name\": \"hopper-intake\"}")
+        )
+                .andExpect(executionTimeLessThan(stopwatch, 1500))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(isValidZip(tempFolder));
-
-        verify(projectCreationService, times(1)).create(any(ProjectCreation.class));
     }
 }

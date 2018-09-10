@@ -15,11 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.Assert.*;
+import java.io.File;
+
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,13 +47,13 @@ public class ComponentControllerTest {
         projectProperties.setType(ApplicationType.JAVA_SPRING_BOOT_2);
 
         when(projectCreationService.create(any(ProjectCreation.class))).thenReturn(null);
+        doNothing().when(fileProcessor).createDirectories(any(File.class));
 
         this.mvc.perform(post("/api/project/generate")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsBytes(projectProperties)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM));
-//                .andExpect(isValidZip(tempFolder));
 
         verify(projectCreationService, times(1)).create(any(ProjectCreation.class));
     }

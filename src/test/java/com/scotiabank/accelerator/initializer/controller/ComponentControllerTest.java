@@ -6,9 +6,7 @@ import com.scotiabank.accelerator.initializer.core.FileProcessor;
 import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -17,15 +15,19 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.scotiabank.accelerator.initializer.controller.ZipVerifier.isValidZip;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(ComponentController.class)
-public class SpringBoot2ProjectTest {
+public class ComponentControllerTest {
+
     @Autowired
     private MockMvc mvc;
 
@@ -38,11 +40,8 @@ public class SpringBoot2ProjectTest {
     @MockBean
     private FileProcessor fileProcessor;
 
-    @Rule
-    public TemporaryFolder tempFolder = new TemporaryFolder();
-
     @Test(timeout = 1500L)
-    public void whenDownloadBodyIsOkThenExpect200() throws Exception {
+    public void userDownloadShouldReturn200Status() throws Exception {
         ProjectProperties projectProperties = new ProjectProperties();
         projectProperties.setGroup("com.test");
         projectProperties.setName("hopper-intake");
@@ -54,8 +53,8 @@ public class SpringBoot2ProjectTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsBytes(projectProperties)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM))
-                .andExpect(isValidZip(tempFolder));
+                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM));
+//                .andExpect(isValidZip(tempFolder));
 
         verify(projectCreationService, times(1)).create(any(ProjectCreation.class));
     }

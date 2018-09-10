@@ -15,4 +15,4 @@ server:
   port: 8086
 
 initializer:
-  template-path: classpath:templates/projectCreation
+  template-path: templates/projectCreation

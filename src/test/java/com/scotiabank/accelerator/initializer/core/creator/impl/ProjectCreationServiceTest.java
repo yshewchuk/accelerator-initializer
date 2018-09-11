@@ -4,31 +4,26 @@
  */
 package com.scotiabank.accelerator.initializer.core.creator.impl;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
+import com.scotiabank.accelerator.initializer.core.FileProcessor;
+import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
 import com.scotiabank.accelerator.initializer.core.creator.ProjectCreator;
+import com.scotiabank.accelerator.initializer.core.event.InitializerCleanUpEvent;
 import com.scotiabank.accelerator.initializer.core.model.ProjectCreation;
 import com.scotiabank.accelerator.initializer.core.zip.ZipFile;
-import com.scotiabank.accelerator.initializer.core.ProjectCreationService;
+import com.scotiabank.accelerator.initializer.model.ApplicationType;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.context.ApplicationEventPublisher;
 
-import com.scotiabank.accelerator.initializer.core.FileProcessor;
-import com.scotiabank.accelerator.initializer.core.event.InitializerCleanUpEvent;
-import com.scotiabank.accelerator.initializer.model.ApplicationType;
-import com.google.common.collect.Lists;
+import static java.util.Arrays.asList;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class ProjectCreationServiceTest {
     
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
     @Mock
     private ApplicationEventPublisher publisher;
     @Mock
@@ -45,7 +40,7 @@ public class ProjectCreationServiceTest {
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
-        this.creator = new ProjectCreationServiceImpl(Lists.newArrayList(projectCreator2, projectCreator1), publisher,fileProcessor,zipFile);
+        this.creator = new ProjectCreationServiceImpl(asList(projectCreator2, projectCreator1), publisher,fileProcessor,zipFile);
     }
 
     @Test

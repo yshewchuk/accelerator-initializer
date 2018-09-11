@@ -27,7 +27,7 @@ class SpringBootProjectCreatorImpl implements ProjectCreator<ProjectCreation> {
 
     @Override
     public boolean skip(ProjectCreation projectCreation) {
-        return ApplicationType.JAVA_SPRING_BOOT != projectCreation.getType() && ApplicationType.JAVA_SPRING_BOOT_2 != projectCreation.getType();
+        return ApplicationType.JAVA_SPRING_BOOT != projectCreation.getType();
     }
 
     @Override

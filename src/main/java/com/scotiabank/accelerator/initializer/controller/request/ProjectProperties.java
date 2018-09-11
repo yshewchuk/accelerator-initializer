@@ -19,11 +19,10 @@ public class ProjectProperties {
     @Length(max = 128)
     @Pattern(regexp = "^([a-z0-9]|[a-z0-9][a-z0-9\\-_.]+)$", message = "{accp.initializer.component.invalid.name}")
     private String name;
-    
+
     @NotEmpty
     private String group;
-    
+
     @NotNull
     private ApplicationType type;
-
 }

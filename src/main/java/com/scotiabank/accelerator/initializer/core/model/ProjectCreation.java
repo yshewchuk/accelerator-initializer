@@ -5,14 +5,17 @@
 package com.scotiabank.accelerator.initializer.core.model;
 
 import com.scotiabank.accelerator.initializer.model.ApplicationType;
-
 import lombok.Builder;
 import lombok.Getter;
+import org.apache.commons.text.WordUtils;
+
+import java.io.File;
+import java.util.regex.Matcher;
 
 @Builder
 @Getter
 public class ProjectCreation {
-    
+
     private String rootDir;
     private String group;
     private String name;
@@ -20,9 +23,9 @@ public class ProjectCreation {
 
     public boolean isJavaBasedProject() {
         return isSpringBootApp() ||
-               ApplicationType.JAVA_LIBRARY == type;
+                ApplicationType.JAVA_LIBRARY == type;
     }
-    
+
     public boolean isSpringBootApp() {
         return ApplicationType.JAVA_SPRING_BOOT.equals(type) ||
                 ApplicationType.JAVA_SPRING_BOOT_2.equals(type);
@@ -33,13 +36,25 @@ public class ProjectCreation {
     }
 
     public String resolvePackageName() {
-        return "com."+ getGroup().toLowerCase();
+        return "com." + getGroup().toLowerCase();
     }
-    
+
+    public String getJavaPackageName() {
+        return getName()
+                .replaceAll("[^A-Za-z0-9]+", "")
+                .toLowerCase();
+    }
+
+    public String getJavaApplicationName() {
+        return WordUtils.capitalizeFully(getName(), '.', ' ', '-')
+                .replaceAll("[^A-Za-z0-9]+", "");
+    }
+
+    public String packageToPath(String content) {
+        return content.replaceAll("\\.", Matcher.quoteReplacement(File.separator));
+    }
+
     public String discoverySpringBootVersion() {
-        if(type == ApplicationType.JAVA_SPRING_BOOT_2) {
-            return "2.0.1.RELEASE";
-        }
-        return "1.5.7.RELEASE";
+        return "1.5.15.RELEASE";
     }
 }

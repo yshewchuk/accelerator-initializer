@@ -44,7 +44,7 @@ public class ComponentController {
         String contentDispositionValue = "attachment; filename=\"" + component.getName() + ".zip\"";
         return ResponseEntity.ok()
                 .header("Content-Disposition", contentDispositionValue)
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentType(MediaType.valueOf("application/zip"))
                 .body(content);
     }
 

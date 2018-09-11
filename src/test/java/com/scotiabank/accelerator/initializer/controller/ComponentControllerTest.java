@@ -53,7 +53,7 @@ public class ComponentControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(objectMapper.writeValueAsBytes(projectProperties)))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM));
+                .andExpect(content().contentType(MediaType.valueOf("application/zip")));
 
         verify(projectCreationService, times(1)).create(any(ProjectCreation.class));
     }

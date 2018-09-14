@@ -6,6 +6,8 @@ Please read and follow our [Code of Conduct](https://github.com/scotiabank/accel
 
 ## Submitting Code
 
+#### Scotiabank is committed to enriching the developer community through open source collaboration. We’ve just begun this exciting journey with all of you! At present, we’re only accepting contributions from individuals with whom we have a prior agreement. Stay tuned for more updates from us!
+
 When submitting code:
 
 **In order to help reviewers reason about the changes and implications of changes, try to submit small pull requests that represent a single feature or change.**

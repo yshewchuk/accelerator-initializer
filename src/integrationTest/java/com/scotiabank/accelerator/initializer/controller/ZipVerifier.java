@@ -1,10 +1,10 @@
 package com.scotiabank.accelerator.initializer.controller;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.rules.TemporaryFolder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -19,7 +19,7 @@ public class ZipVerifier {
 
     public static void verifyZip(byte[] content, TemporaryFolder folder) throws IOException {
         File temp = folder.newFile("projectOutput.zip");
-        FileUtils.writeByteArrayToFile(temp, content);
+        Files.write(temp.toPath(), content);
         Path dir = folder.getRoot().toPath();
 
         byte[] buffer = new byte[1024];

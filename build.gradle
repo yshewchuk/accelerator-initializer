@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'jacoco'
-    id 'org.springframework.boot' version '1.5.15.RELEASE'
+    id 'org.springframework.boot' version '1.5.18.RELEASE'
     id 'maven-publish'
 }
 
@@ -18,7 +18,6 @@ repositories {
 ext {
     lombokVersion = '1.18.2'
     springfoxSwaggerVersion = '2.9.2'
-    commonsIOVersion = '2.6'
 }
 
 sourceSets {
@@ -38,12 +37,24 @@ dependencies {
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     compile 'org.springframework.boot:spring-boot-starter'
     compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    compile "commons-io:commons-io:$commonsIOVersion"
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.7'
     compile 'org.springframework.boot:spring-boot-starter-mustache'
     compile 'org.springframework.boot:spring-boot-starter-actuator'
+
     compile "io.springfox:springfox-swagger2:$springfoxSwaggerVersion"
+    constraints {
+        implementation("com.google.guava:guava:26.0-jre") {
+            because "previous versions contain a bug"
+        }
+    }
+
     compile "io.springfox:springfox-swagger-ui:$springfoxSwaggerVersion"
+    constraints {
+        implementation("com.google.guava:guava:26.0-jre") {
+            because "previous versions contain a bug"
+        }
+    }
+
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'com.jayway.jsonpath:json-path'
     testCompile 'com.jayway.jsonpath:json-path-assert'
